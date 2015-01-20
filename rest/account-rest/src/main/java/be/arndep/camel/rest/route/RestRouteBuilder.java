@@ -61,21 +61,22 @@ public class RestRouteBuilder extends RouteBuilder {
 
                 .delete("/{id}")
                     .description("Delete an account by id")
+                    .outType(ReadAccount.class)
                     .to("direct://acounts.delete")
 
-                .put("/{id}/deposit")
+                .post("/{id}/deposit")
                     .description("Add money to the account")
                     .type(BigDecimal.class)
 					.outType(ReadAccount.class)
                     .to("direct://acounts.deposit")
 
-                .put("/{id}/withdraw")
+                .post("/{id}/withdraw")
                     .description("Withdraw money to the account")
                     .type(BigDecimal.class)
 					.outType(ReadAccount.class)
                     .to("direct://acounts.withdraw")
 
-                .put("/{id}/transfer")
+                .post("/{id}/transfer")
                     .description("Transfer money from the current account to another account")
                     .type(TransferData.class)
 					.outType(ReadAccount.class)
@@ -85,7 +86,6 @@ public class RestRouteBuilder extends RouteBuilder {
                 .id("accounts-find-all")
                 .to("bean:accountService?method=findAll(${header.page},${header.limit})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-//                .process(this::mapToResponseEntity)
                 .marshal(new JacksonDataFormat(objectMapper, Resources.class));
 
         from("direct://acounts.create")
@@ -93,14 +93,12 @@ public class RestRouteBuilder extends RouteBuilder {
                 .unmarshal(new JacksonDataFormat(objectMapper, CreateAccount.class))
                 .to("bean:accountService?method=create(${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.CREATED.getStatusCode()))
-//                .process(this::mapToResponseEntity)
                 .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
 
         from("direct://acounts.find.id")
                 .id("accouts-find-id")
                 .to("bean:accountService?method=get(${header.id})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-//                .process(this::mapToResponseEntity)
                 .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
 
         from("direct://acounts.update")
@@ -108,14 +106,12 @@ public class RestRouteBuilder extends RouteBuilder {
                 .unmarshal(new JacksonDataFormat(objectMapper, UpdateAccount.class))
                 .to("bean:accountService?method=update(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-//                .process(this::mapToResponseEntity)
                 .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
 
         from("direct://acounts.delete")
                 .id("accouts-delete")
                 .to("bean:accountService?method=delete(${header.id})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-//                .process(this::mapToResponseEntity)
 				.marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
 
         from("direct://acounts.deposit")
@@ -123,7 +119,6 @@ public class RestRouteBuilder extends RouteBuilder {
                 .unmarshal(new JacksonDataFormat(objectMapper, BigDecimal.class))
                 .to("bean:accountService?method=deposit(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-//                .process(this::mapToResponseEntity)
                 .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
 
         from("direct://acounts.withdraw")
@@ -131,7 +126,6 @@ public class RestRouteBuilder extends RouteBuilder {
                 .unmarshal(new JacksonDataFormat(objectMapper, BigDecimal.class))
                 .to("bean:accountService?method=withdraw(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-//                .process(this::mapToResponseEntity)
                 .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
 
         from("direct://acounts.transfer")
@@ -139,7 +133,6 @@ public class RestRouteBuilder extends RouteBuilder {
                 .unmarshal(new JacksonDataFormat(objectMapper, TransferData.class))
                 .to("bean:accountService?method=transfer(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-//                .process(this::mapToResponseEntity)
                 .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
     }
 

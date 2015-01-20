@@ -24,10 +24,10 @@ public class AccountService {
 		this.accountRepository = accountRepository;
 	}
 
-	public Resources<ReadAccountImpl> findAll(Long page, Long limit) {
+	public Resources<ReadAccount> findAll(Long page, Long limit) {
 		Optional<Long> optionalPage = Optional.ofNullable(page);
 		Optional<Long> optionalLimit = Optional.ofNullable(limit);
-		List<ReadAccountImpl> accounts = accountRepository.readAll(optionalPage, optionalLimit).stream()
+		List<ReadAccount> accounts = accountRepository.readAll(optionalPage, optionalLimit).stream()
 				.map(this::mapToReadAccount)
 				.collect(Collectors.toList());
 		return new PagedResources<>(accounts, 
@@ -47,8 +47,8 @@ public class AccountService {
 				.orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
 	}
 
-	public void update(Long id, UpdateAccount account) {
-		accountRepository.read(id)
+	public ReadAccount update(Long id, UpdateAccount account) {
+		return accountRepository.read(id)
 				.map(a -> Account.builder()
 								.id(a.getId())
 								.createdDate(a.getCreatedDate())
@@ -63,7 +63,7 @@ public class AccountService {
 
 	public ReadAccount delete(Long id) {
 		Optional<Account> result = accountRepository.read(id);
-		result.map(a -> accountRepository.delete(a));
+		result.ifPresent(a -> accountRepository.delete(a));
 		return mapToReadAccount(result.orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND)));
 	}
 
@@ -95,7 +95,7 @@ public class AccountService {
 		return mapToReadAccount(from);
 	}
 
-	private final ReadAccountImpl mapToReadAccount(final Account a) {
+	private final ReadAccount mapToReadAccount(final Account a) {
 		ReadAccountImpl response = ReadAccountImpl.builder()
 				.createdDate(a.getCreatedDate())
 				.lastModifiedDate(a.getLastModifiedDate())

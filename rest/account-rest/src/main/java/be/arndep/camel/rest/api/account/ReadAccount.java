@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
  */
 @ApiModel(parent = AccountData.class)
 public interface ReadAccount extends AccountData {
-	//Inheritance does not work with swagger
+	//Inheritance doesn't work well with camel, so we need to rewrite the method.
 	Double getBalance();
-	
+
 	LocalDateTime getCreatedDate();
 	LocalDateTime getLastModifiedDate();
 	boolean isClosed();

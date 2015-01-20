@@ -60,11 +60,6 @@
             <artifactId>swagger-springmvc</artifactId>
             <version>0.9.4</version>
         </dependency>
-        <dependency>
-            <groupId>org.ajar</groupId>
-            <artifactId>swagger-spring-mvc-ui</artifactId>
-            <version>0.4</version>
-        </dependency>
         <!--Log-->
         <dependency>
             <groupId>org.slf4j</groupId>

@@ -7,7 +7,7 @@ import com.wordnik.swagger.annotations.ApiModel;
  */
 @ApiModel(parent = AccountData.class)
 public interface UpdateAccount extends AccountData {
-	//Inheritance does not work with swagger
+	//Inheritance doesn't work well with camel, so we need to rewrite the method.
 	Double getBalance();
 	
 	boolean isClosed();
