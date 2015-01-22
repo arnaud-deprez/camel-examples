@@ -109,7 +109,7 @@ public class AccountService {
 			response.add(new Link(MessageFormat.format("/accounts/{0}/withdraw", a.getId())).withRel("withdraw"));
 			response.add(new Link(MessageFormat.format("/accounts/{0}/transfer", a.getId())).withRel("transfer"));
 		}
-		response.add(new Link("/accounts").withRel("/accounts"));
+		response.add(new Link("/accounts").withRel("accounts"));
 		return response;
 	}
 
