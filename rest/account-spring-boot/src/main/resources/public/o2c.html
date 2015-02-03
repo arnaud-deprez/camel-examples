@@ -9,7 +9,7 @@ else {
 qp = qp ? JSON.parse('{"' + qp.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
   function(key, value) {
     return key===""?value:decodeURIComponent(value) }
-  ):{}
+  ):{};
 window.opener.onOAuthComplete(qp);
 window.close();
 </script>

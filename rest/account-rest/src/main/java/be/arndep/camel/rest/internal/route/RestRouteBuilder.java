@@ -1,20 +1,12 @@
-package be.arndep.camel.rest.route;
+package be.arndep.camel.rest.internal.route;
 
-import be.arndep.camel.rest.api.account.CreateAccount;
-import be.arndep.camel.rest.api.account.ReadAccount;
-import be.arndep.camel.rest.api.account.TransferData;
-import be.arndep.camel.rest.api.account.UpdateAccount;
+import be.arndep.camel.rest.api.account.*;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.module.mrbean.MrBeanModule;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.model.rest.RestBindingMode;
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
@@ -86,63 +78,58 @@ public class RestRouteBuilder extends RouteBuilder {
                 .id("accounts-find-all")
                 .to("bean:accountService?method=findAll(${header.page},${header.limit})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-                .marshal(new JacksonDataFormat(objectMapper, Resources.class));
+                .marshal(new JacksonDataFormat(objectMapper, ReadAccounts.class));
 
         from("direct://acounts.create")
                 .id("accouts-create")
                 .unmarshal(new JacksonDataFormat(objectMapper, CreateAccount.class))
                 .to("bean:accountService?method=create(${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.CREATED.getStatusCode()))
-                .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
+                .marshal(new JacksonDataFormat(objectMapper, ReadAccount.class));
 
         from("direct://acounts.find.id")
                 .id("accouts-find-id")
                 .to("bean:accountService?method=get(${header.id})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-                .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
+                .marshal(new JacksonDataFormat(objectMapper, ReadAccount.class));
 
         from("direct://acounts.update")
                 .id("accouts-update")
                 .unmarshal(new JacksonDataFormat(objectMapper, UpdateAccount.class))
                 .to("bean:accountService?method=update(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-                .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
+                .marshal(new JacksonDataFormat(objectMapper, ReadAccount.class));
 
         from("direct://acounts.delete")
                 .id("accouts-delete")
                 .to("bean:accountService?method=delete(${header.id})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-				.marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
+				.marshal(new JacksonDataFormat(objectMapper, ReadAccount.class));
 
         from("direct://acounts.deposit")
                 .id("accouts-deposit")
                 .unmarshal(new JacksonDataFormat(objectMapper, BigDecimal.class))
                 .to("bean:accountService?method=deposit(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-                .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
+                .marshal(new JacksonDataFormat(objectMapper, ReadAccount.class));
 
         from("direct://acounts.withdraw")
                 .id("accouts-withdraw")
                 .unmarshal(new JacksonDataFormat(objectMapper, BigDecimal.class))
                 .to("bean:accountService?method=withdraw(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-                .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
+                .marshal(new JacksonDataFormat(objectMapper, ReadAccount.class));
 
         from("direct://acounts.transfer")
                 .id("accouts-transfer")
                 .unmarshal(new JacksonDataFormat(objectMapper, TransferData.class))
                 .to("bean:accountService?method=transfer(${header.id},${body})")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(Response.Status.OK.getStatusCode()))
-                .marshal(new JacksonDataFormat(objectMapper, ResourceSupport.class));
-    }
-
-    private final void mapToResponseEntity(Exchange e) {
-        e.getIn().setBody(new ResponseEntity<>(e.getIn().getBody(), HttpStatus.valueOf(e.getIn().getHeader(Exchange.HTTP_RESPONSE_CODE, Integer.class))));
+                .marshal(new JacksonDataFormat(objectMapper, ReadAccount.class));
     }
 
     private final ObjectMapper create() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new Jdk8Module());
         objectMapper.registerModule(new MrBeanModule());
 
         SerializationConfig serializationConfig = objectMapper.getSerializationConfig();

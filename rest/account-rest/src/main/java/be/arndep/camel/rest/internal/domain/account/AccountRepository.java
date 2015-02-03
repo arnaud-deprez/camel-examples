@@ -1,4 +1,4 @@
-package be.arndep.camel.rest.domain.account;
+package be.arndep.camel.rest.internal.domain.account;
 
 import be.arndep.camel.shared.repository.CrudRepository;
 

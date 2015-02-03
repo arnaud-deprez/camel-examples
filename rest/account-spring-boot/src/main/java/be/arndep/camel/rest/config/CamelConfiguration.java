@@ -1,6 +1,6 @@
 package be.arndep.camel.rest.config;
 
-import be.arndep.camel.rest.route.RestRouteBuilder;
+import be.arndep.camel.rest.internal.route.RestRouteBuilder;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;

@@ -1,7 +1,7 @@
-package be.arndep.camel.rest.data;
+package be.arndep.camel.rest.internal.data;
 
-import be.arndep.camel.rest.domain.account.Account;
-import be.arndep.camel.rest.domain.account.AccountRepository;
+import be.arndep.camel.rest.internal.domain.account.Account;
+import be.arndep.camel.rest.internal.domain.account.AccountRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

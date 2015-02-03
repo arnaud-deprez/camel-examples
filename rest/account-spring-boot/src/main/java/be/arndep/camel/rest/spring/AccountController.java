@@ -1,13 +1,10 @@
 package be.arndep.camel.rest.spring;
 
-import be.arndep.camel.rest.api.account.AccountService;
-import be.arndep.camel.rest.api.account.CreateAccount;
-import be.arndep.camel.rest.api.account.ReadAccount;
-import be.arndep.camel.rest.api.account.UpdateAccount;
+import be.arndep.camel.rest.api.account.*;
+import be.arndep.camel.rest.internal.service.AccountService;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +28,7 @@ public class AccountController {
 
 	@ApiOperation(value = "Get all accounts", response = ReadAccount.class, responseContainer = "List")
 	@RequestMapping(method = RequestMethod.GET)
-	public HttpEntity<Resources<ReadAccount>> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") Long page,
+	public HttpEntity<ReadAccounts> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") Long page,
 													  @RequestParam(value = "limit", required = false, defaultValue = "20") Long limit) {
 		return new ResponseEntity<>(accountService.findAll(page, limit), HttpStatus.OK);
 	}
