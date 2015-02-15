@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="
+           http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <bean id="h2XaDataSource" class="org.h2.jdbcx.JdbcDataSource">
+        <property name="url" value="jdbc:h2:mem:h2/testdb"/>
+    </bean>
+    <bean id="dataSource" class="org.apache.commons.dbcp2.managed.BasicManagedDataSource">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="xaDataSourceInstance" ref="h2XaDataSource"/>
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+</blueprint>

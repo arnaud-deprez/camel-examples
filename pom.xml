@@ -12,12 +12,14 @@
     <modules>
         <module>shared</module>
         <module>rest</module>
+        <module>transaction</module>
     </modules>
 
     <properties>
         <camel.version>2.14.1</camel.version>
-        <activemq.version>5.10.0</activemq.version>
+        <activemq.version>5.11.0</activemq.version>
         <hibernate.version>4.3.7.Final</hibernate.version>
+        <dbcp2.version>2.0.1</dbcp2.version>
         <h2db.version>1.4.184</h2db.version>
         <pax-exam.version>4.4.0</pax-exam.version>
         <karaf.version>3.0.2</karaf.version>
@@ -48,6 +50,16 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>6.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>5.0.0</version>
             </dependency>
             <!--Spring boot dependencies-->
             <dependency>
@@ -175,6 +187,12 @@
             </dependency>
             <!--DB-->
             <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-dbcp2</artifactId>
+                <version>${dbcp2.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${h2db.version}</version>
@@ -234,14 +252,14 @@
             <dependency>
                 <groupId>org.apache.aries.jpa</groupId>
                 <artifactId>org.apache.aries.jpa.blueprint.aries</artifactId>
-                <version>1.0.2</version>
-                <scope>test</scope>
+                <version>1.0.4</version>
+                <!--<scope>test</scope>-->
             </dependency>
             <dependency>
                 <groupId>org.apache.aries.jpa</groupId>
                 <artifactId>org.apache.aries.jpa.container.context</artifactId>
-                <version>1.0.2</version>
-                <scope>test</scope>
+                <version>1.0.4</version>
+                <!--<scope>test</scope>-->
             </dependency>
             <dependency>
                 <groupId>org.apache.aries.transaction</groupId>
@@ -252,7 +270,31 @@
             <dependency>
                 <groupId>org.apache.aries.transaction</groupId>
                 <artifactId>org.apache.aries.transaction.manager</artifactId>
+                <version>1.1.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries.jndi</groupId>
+                <artifactId>org.apache.aries.jndi.api</artifactId>
                 <version>1.1.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries.jndi</groupId>
+                <artifactId>org.apache.aries.jndi.core</artifactId>
+                <version>1.0.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries.jndi</groupId>
+                <artifactId>org.apache.aries.jndi.url</artifactId>
+                <version>1.1.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries.jndi</groupId>
+                <artifactId>org.apache.aries.jndi.legacy.support</artifactId>
+                <version>1.0.0</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
