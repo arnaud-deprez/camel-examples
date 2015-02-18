@@ -1,6 +1,5 @@
 package be.arndep.camel.transaction.internal;
 
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 
 import java.io.IOException;

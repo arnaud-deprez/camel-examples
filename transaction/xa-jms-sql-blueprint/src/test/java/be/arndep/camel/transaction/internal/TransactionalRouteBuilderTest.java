@@ -73,13 +73,10 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		assertNotNull(context.getRouteDefinition(routeId));
 
 		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.1");
-		context.getRouteDefinition(routeId).adviceWith(context, new RouteBuilder() {
+		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				interceptSendToEndpoint(TransactionalRouteBuilder.SQL_ENDPOINT)
-						.to(outputQueue);
-
-				interceptSendToEndpoint("activemq:queue://message.out.1")
+				from("activemq:queue://message.out.1")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
@@ -93,7 +90,6 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		template.sendBody("activemq:queue://message.in.1", body);
 
 		assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
-		Thread.sleep(2000);
 		assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "message"));
 	}
 
@@ -103,10 +99,10 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		assertNotNull(context.getRouteDefinition(routeId));
 
 		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.2");
-		context.getRouteDefinition(routeId).adviceWith(context, new RouteBuilder() {
+		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				interceptSendToEndpoint("activemq:queue://message.out.2")
+				from("activemq:queue://message.out.2")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
@@ -129,10 +125,10 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		assertNotNull(context.getRouteDefinition(routeId));
 
 		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.3");
-		context.getRouteDefinition(routeId).adviceWith(context, new RouteBuilder() {
+		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				interceptSendToEndpoint("activemq:queue://message.out.3")
+				from("activemq:queue://message.out.3")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
@@ -155,19 +151,17 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		assertNotNull(context.getRouteDefinition(routeId));
 
 		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.4");
-		context.getRouteDefinition(routeId).adviceWith(context, new RouteBuilder() {
+		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				interceptSendToEndpoint("activemq:queue://message.out.4")
+				from("activemq:queue://message.out.4")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
 		});
 
 		String body = "Hello World!";
-		// It's not transactional when sending message !
-		outputQueue.expectedMessageCount(1);
-		outputQueue.expectedBodiesReceived(body);
+		outputQueue.expectedMessageCount(0);
 		dlq.expectedMessageCount(1);
 		dlq.expectedBodiesReceived(body);
 

@@ -10,13 +10,13 @@
     </bean>
 
     <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.XaPooledConnectionFactory" init-method="start" destroy-method="stop">
-        <property name="maxConnections" value="8" />
+        <property name="maxConnections" value="2" />
         <property name="connectionFactory" ref="jmsXaConnectionFactory" />
         <property name="transactionManager" ref="transactionManager"/>
     </bean>
 
     <bean id="jmsXaConnectionFactory" class="org.apache.activemq.ActiveMQXAConnectionFactory">
-        <property name="brokerURL" value="vm://localhost?broker.persistent=false"/>
+        <property name="brokerURL" value="vm://localhost?broker.persistent=false&amp;broker.useJmx=false"/>
         <property name="redeliveryPolicy">
             <bean class="org.apache.activemq.RedeliveryPolicy">
                 <property name="maximumRedeliveries" value="0"/>
@@ -24,9 +24,16 @@
         </property>
     </bean>
 
-    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+    <bean id="jmsTxConfig" class="org.apache.camel.component.jms.JmsConfiguration">
         <property name="connectionFactory" ref="pooledJmsXaConnectionFactory"/>
-        <property name="transacted" value="true"/>
         <property name="transactionManager" ref="transactionManager"/>
+        <property name="transacted" value="true"/>
+        <!--Attempt to optimize the perf http://camel.apache.org/jms.html#JMS-transactedConsumption-->
+        <property name="lazyCreateTransactionManager" value="false"/>
+        <property name="cacheLevelName" value="CACHE_CONNECTION"/>
+    </bean>
+
+    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="configuration" ref="jmsTxConfig"/>
     </bean>
 </blueprint>

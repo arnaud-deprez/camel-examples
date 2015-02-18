@@ -12,6 +12,6 @@
     <artifactId>transaction</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>transaction-sql-blueprint</module>
+        <module>xa-jms-sql-blueprint</module>
     </modules>
 </project>
