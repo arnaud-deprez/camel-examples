@@ -29,4 +29,4 @@ install -s mvn:be.arndep.camel/account-rest/1.0.0-SNAPSHOT
 
 ##Play
 
-Once it's installed, you can go to http://localhost:8181/camel/api/accounts with your favourite browser.
+Once it's installed, you can go to [http://localhost:8181/camel/api/accounts](http://localhost:8181/camel/api/accounts) with your favourite browser.

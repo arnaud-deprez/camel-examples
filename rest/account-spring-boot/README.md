@@ -8,4 +8,4 @@ Here is a simple example where we can use camel with spring boot and make them w
 mvn spring-boot:run
 ```
 
-Then go to [http://localhost:8080] with your favourite browser to get the Swagger doc !
+Then go to [http://localhost:8080](http://localhost:8080) with your favourite browser to get the Swagger doc !
