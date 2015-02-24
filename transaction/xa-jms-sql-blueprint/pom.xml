@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>transaction-sql-blueprint</artifactId>
+    <artifactId>xa-jms-sql-blueprint</artifactId>
     <packaging>bundle</packaging>
     
     <dependencies>
