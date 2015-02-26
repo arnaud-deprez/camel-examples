@@ -14,6 +14,8 @@
     </bean>
     
     <bean id="transactionalRoute" class="be.arndep.camel.transaction.internal.TransactionalRouteBuilder"/>
+
+    <bean id="metricsRoutePolicyFactory" class="org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory"/>
     
     <camelContext id="transaction-sql" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true">
         <routeBuilder ref="transactionalRoute"/>
