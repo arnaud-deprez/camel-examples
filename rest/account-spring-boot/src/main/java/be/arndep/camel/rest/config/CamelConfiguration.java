@@ -1,11 +1,15 @@
 package be.arndep.camel.rest.config;
 
 import be.arndep.camel.rest.internal.route.RestRouteBuilder;
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
-import org.apache.camel.component.swagger.spring.SpringRestSwaggerApiDeclarationServlet;
+import org.apache.camel.component.swagger.DefaultCamelSwaggerServlet;
+import org.apache.camel.spi.CamelContextNameStrategy;
+import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.spring.SpringCamelContext;
+import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +28,18 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
     public static final String CAMEL_URL_MAPPING = "/camel/api/*";
     private static final String CAMEL_SERVLET_NAME = "CamelServlet";
 
+	/**
+	 * Camel context configuration
+	 * @return
+	 */
+	@Bean
+	public CamelContextConfiguration contextConfiguration() {
+		return camelContext -> {
+			camelContext.setUseMDCLogging(true);
+			camelContext.setUseBreadcrumb(true);
+		};
+	}
+
     /**
      * Servlet configuration for camel REST 
      */
@@ -35,23 +51,20 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
         return registration;
     }
 
-    /**
-     * Camel context configuration
-     * @param applicationContext
-     * @return
-     * @throws Exception
-     */
+	/**
+	 * Metrics for camel
+	 * @return
+	 */
+	@Bean
+	public RoutePolicyFactory metricRoutePolicyFactory() {
+		return new MetricsRoutePolicyFactory();
+	}
+
+	/**
+	 * My router
+	 * @return
+	 */
     @Bean
-    public SpringCamelContext camelContext(ApplicationContext applicationContext) throws Exception {
-        SpringCamelContext camelContext = new SpringCamelContext(applicationContext);
-        camelContext.setName("accounts-rest");
-        camelContext.setUseMDCLogging(true);
-        camelContext.setUseBreadcrumb(true);
-        camelContext.addRoutePolicyFactory(new MetricsRoutePolicyFactory());
-        camelContext.addRoutes(router());
-        return camelContext;
-    }
-    
     public RoutesBuilder router() {
         return new RestRouteBuilder();
     }
@@ -61,7 +74,7 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
      */
     @Bean
     public ServletRegistrationBean swaggerServlet() {
-        ServletRegistrationBean swagger = new ServletRegistrationBean(new SpringRestSwaggerApiDeclarationServlet(), "/camel/api/api-docs/*");
+        ServletRegistrationBean swagger = new ServletRegistrationBean(new DefaultCamelSwaggerServlet(), "/camel/api/api-docs/*");
         Map<String, String> params = new HashMap<>();
         params.put("base.path", "http://localhost:8080" + CamelConfiguration.CAMEL_URL_MAPPING.substring(0, CamelConfiguration.CAMEL_URL_MAPPING.length() - 2));
         params.put("api.title", "Camel REST Api Title");

@@ -6,8 +6,11 @@ import be.arndep.camel.rest.internal.domain.account.AccountRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 
 /**
@@ -15,54 +18,63 @@ import java.util.stream.Collectors;
  */
 public class AccountMemoryRepositoryImpl implements AccountRepository {
 
-    private AtomicLong sequence;
-    private List<Account> accounts;
+    private LongAdder sequence;
+    private ConcurrentMap<Long, Account> accounts;
 
     public AccountMemoryRepositoryImpl() {
-        sequence = new AtomicLong(0);
-        accounts = new CopyOnWriteArrayList<>();
-        accounts.add(
-                Account.builder()
-                        .balance(100_000D)
-                        .createdDate(LocalDateTime.now())
-                        .lastModifiedDate(LocalDateTime.now())
-                        .id(sequence.incrementAndGet())
-                        .build()
-        );
-        accounts.add(
-                Account.builder()
-                        .balance(2082.74D)
-                        .createdDate(LocalDateTime.now())
-                        .lastModifiedDate(LocalDateTime.now())
-                        .id(sequence.incrementAndGet())
-                        .build()
-        );
-    }
+        sequence = new LongAdder();
+        accounts = new ConcurrentHashMap<>();
+		sequence.increment();
+        accounts.putIfAbsent(
+				sequence.longValue(),
+				Account.builder()
+						.balance(100_000D)
+						.createdDate(LocalDateTime.now())
+						.lastModifiedDate(LocalDateTime.now())
+						.id(sequence.longValue())
+						.build()
+		);
+		sequence.increment();
+		accounts.putIfAbsent(
+				sequence.longValue(),
+				Account.builder()
+						.balance(2082.74D)
+						.createdDate(LocalDateTime.now())
+						.lastModifiedDate(LocalDateTime.now())
+						.id(sequence.longValue())
+						.build()
+		);
+	}
 
     @Override
     public Account create(final Account account) {
+        sequence.increment();
         Account a = Account.builder()
                 .balance(account.getBalance())
                 .createdDate(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
-                .id(sequence.incrementAndGet())
+                .id(sequence.longValue())
                 .build();
-        accounts.add(a);
+        accounts.putIfAbsent(sequence.longValue(), a);
         return a;
     }
 
     @Override
     public Optional<Account> read(final Long id) {
-        return accounts.stream()
-                .filter(m -> id.equals(m.getId()))
-                .reduce((a, b) -> a);
+        return accounts.entrySet()
+				.stream()
+                .filter(e -> id.equals(e.getKey()))
+                .findFirst()
+				.map(o -> o.getValue());
     }
 
     @Override
     public List<Account> readAll(final Optional<Long> page, final Optional<Long> limit) {
-        return accounts.stream()
+        return accounts.entrySet()
+				.stream()
                 .skip(page.orElse(Long.valueOf(0)) * limit.orElse(Long.valueOf(20)))
                 .limit(limit.orElse(Long.valueOf(20)))
+				.map(e -> e.getValue())
                 .collect(Collectors.toList());
     }
 
@@ -79,7 +91,10 @@ public class AccountMemoryRepositoryImpl implements AccountRepository {
 
     @Override
     public boolean delete(final Long id) {
-        return accounts.removeIf(m -> id.equals(m.getId()));
+        boolean result = accounts.containsKey(id);
+        if (result)
+        	accounts.remove(id);
+		return result;
     }
 
     @Override
