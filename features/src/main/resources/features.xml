@@ -1,0 +1,32 @@
+<features name="camel-examples" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
+    <feature name="account-rest" version="${project.version}">
+        <feature>camel</feature>
+        <feature>camel-metrics</feature>
+        <feature>camel-servlet</feature>
+        <feature>camel-jackson</feature>
+        <feature>camel-cxf</feature>
+        <feature>camel-swagger</feature>
+        <feature>spring-web</feature>
+        <bundle>mvn:com.fasterxml.jackson.module/jackson-module-mrbean/${jackson.mr.bean.version}</bundle>
+        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle>mvn:be.arndep.camel/account-rest/${project.version}</bundle>
+    </feature>
+
+    <feature name="xa-jms-sql-blueprint" version="${project.version}">
+        <feature>jndi</feature>
+        <feature>transaction</feature>
+        <feature>pax-jdbc</feature>
+        <feature>pax-jdbc-pool-aries</feature>
+        <feature>camel</feature>
+        <feature>camel-metrics</feature>
+        <feature>camel-sql</feature>
+        <feature>activemq</feature>
+        <feature>activemq-broker</feature>
+        <feature>activemq-camel</feature>
+        <bundle>mvn:com.h2database/h2/${h2db.version}</bundle>
+        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/h2-datasource</bundle>
+        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/activemq-component</bundle>
+        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle>mvn:be.arndep.camel/xa-jms-sql-blueprint/${project.version}</bundle>
+    </feature>
+</features>

@@ -16,12 +16,15 @@ public class TransactionalRouteBuilder extends RouteBuilder {
 		from("activemq:queue://message.in.1")
 				.id("transactionalRoute-1")
 				.transacted()
+				.log("@@ Receive message ${body}")
 				.to(SQL_ENDPOINT)
-				.to("activemq:queue://message.out.1");
+				.to("activemq:queue://message.out.1")
+				.log("@@ Finish to process ${body}");
 
 		from("activemq:queue://message.in.2")
 				.id("transactionalRoute-2")
 				.transacted()
+				.log("@@ Receive message ${body}")
 				.throwException(new IOException("Forced Exception 2. This should provoke rollback"))
 				.to(SQL_ENDPOINT)
 				.to("activemq:queue://message.out.2");
@@ -29,6 +32,7 @@ public class TransactionalRouteBuilder extends RouteBuilder {
 		from("activemq:queue://message.in.3")
 				.id("transactionalRoute-3")
 				.transacted()
+				.log("@@ Receive message ${body}")
 				.to(SQL_ENDPOINT)
 				.throwException(new IOException("Forced Exception 3. This should provoke rollback"))
 				.to("activemq:queue://message.out.3");
@@ -36,6 +40,7 @@ public class TransactionalRouteBuilder extends RouteBuilder {
 		from("activemq:queue://message.in.4")
 				.id("transactionalRoute-4")
 				.transacted()
+				.log("@@ Receive message ${body}")
 				.to(SQL_ENDPOINT)
 				.to("activemq:queue://message.out.4")
 				.throwException(new IOException("Forced Exception 4. This should provoke rollback"));

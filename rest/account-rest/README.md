@@ -6,26 +6,28 @@ Account REST
 ###Installation on Karaf 2
 
 ```sh
-features:chooseUrl camel 2.14.1
-features:install camel-blueprint camel-metrics camel-servlet camel-jackson camel-cxf
-features:install spring-web
-install -s mvn:com.fasterxml.jackson.module/jackson-module-mrbean/2.4.1
-install -s mvn:com.wordnik/swagger-annotations/1.3.11
-install -s mvn:be.arndep.camel/shared/1.0.0-SNAPSHOT
-install -s mvn:be.arndep.camel/account-rest/1.0.0-SNAPSHOT
+features:chooseUrl camel 2.15.0
+features:addurl mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
+features:install -v -c account-rest
 ```
 
 ###Installation on Karaf 3
 
+Go the subshell feature:
+
 ```sh
-feature:repo-add camel 2.14.1
-feature:install camel-blueprint camel-metrics camel-servlet camel-jackson camel-cxf
-feature:install spring-web
-install -s mvn:com.fasterxml.jackson.module/jackson-module-mrbean/2.4.1
-install -s mvn:com.wordnik/swagger-annotations/1.3.11
-install -s mvn:be.arndep.camel/shared/1.0.0-SNAPSHOT
-install -s mvn:be.arndep.camel/account-rest/1.0.0-SNAPSHOT
+feature
 ```
+
+And then, run the following commands:
+
+```sh
+repo-add camel 2.15.0
+repo-add mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
+install -v -c account-rest
+```
+
+If your are not using the subshell, you can prefix all the previous commands with 'feature:'.
 
 ##Play
 
