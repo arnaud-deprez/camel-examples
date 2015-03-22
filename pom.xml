@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.2.RELEASE</version>
+        <version>1.2.1.RELEASE</version>
     </parent>
 
     <groupId>be.arndep.camel</groupId>
@@ -33,8 +33,6 @@
         <karaf.version>3.0.3</karaf.version>
         <slf4j.version>1.7.9</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <!--<spring-boot.version>1.2.1.RELEASE</spring-boot.version>-->
-        <jackson.mr.bean.version>2.5.1</jackson.mr.bean.version>
         <lombok.version>1.16.2</lombok.version>
 
         <java.version>1.8</java.version>
@@ -208,12 +206,6 @@
                 <artifactId>h2</artifactId>
                 <version>${h2db.version}</version>
                 <scope>test</scope>
-            </dependency>
-            <!--Jackson modules-->
-            <dependency>
-                <groupId>com.fasterxml.jackson.module</groupId>
-                <artifactId>jackson-module-mrbean</artifactId>
-                <version>${jackson.mr.bean.version}</version>
             </dependency>
             <!--JSONPath-->
             <dependency>
