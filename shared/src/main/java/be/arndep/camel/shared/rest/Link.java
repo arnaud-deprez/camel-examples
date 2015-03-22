@@ -9,6 +9,8 @@ import java.util.Collection;
  * Created by arnaud on 15/02/15.
  */
 public final class Link {
+	public static final String SELF_REL = "self";
+
 	private String rel;
 	private String href;
 	private Collection<String> types;

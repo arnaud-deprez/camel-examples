@@ -1,8 +1,8 @@
 package be.arndep.camel.rest.config;
 
-import be.arndep.camel.rest.internal.service.AccountService;
-import be.arndep.camel.rest.internal.data.AccountMemoryRepositoryImpl;
-import be.arndep.camel.rest.internal.domain.account.AccountRepository;
+import be.arndep.camel.rest.account.internal.data.AccountMemoryRepositoryImpl;
+import be.arndep.camel.rest.account.internal.domain.AccountRepository;
+import be.arndep.camel.rest.account.internal.domain.AccountService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

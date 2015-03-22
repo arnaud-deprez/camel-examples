@@ -7,9 +7,9 @@
         <feature>camel-cxf</feature>
         <feature>camel-swagger</feature>
         <feature>spring-web</feature>
-        <bundle>mvn:com.fasterxml.jackson.module/jackson-module-mrbean/${jackson.mr.bean.version}</bundle>
         <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
-        <bundle>mvn:be.arndep.camel/account-rest/${project.version}</bundle>
+        <bundle>mvn:be.arndep.camel/account-rest-api/${project.version}</bundle>
+        <bundle>mvn:be.arndep.camel/account-rest-core/${project.version}</bundle>
     </feature>
 
     <feature name="xa-jms-sql-blueprint" version="${project.version}">

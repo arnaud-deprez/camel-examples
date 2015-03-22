@@ -1,18 +1,14 @@
 package be.arndep.camel.rest.config;
 
-import be.arndep.camel.rest.internal.route.RestRouteBuilder;
-import org.apache.camel.CamelContext;
+import be.arndep.camel.rest.account.internal.route.RestRouteBuilder;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.component.swagger.DefaultCamelSwaggerServlet;
-import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.RoutePolicyFactory;
-import org.apache.camel.spring.SpringCamelContext;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

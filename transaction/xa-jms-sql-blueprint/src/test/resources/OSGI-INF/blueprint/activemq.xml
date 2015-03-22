@@ -9,7 +9,8 @@
         <property name="resourceName" value="activemq.default" />
     </bean>
 
-    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.XaPooledConnectionFactory" init-method="start" destroy-method="stop">
+    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.JcaPooledConnectionFactory" init-method="start" destroy-method="stop">
+        <property name="name" value="amq-broker" />
         <property name="maxConnections" value="2" />
         <property name="connectionFactory" ref="jmsXaConnectionFactory" />
         <property name="transactionManager" ref="transactionManager"/>

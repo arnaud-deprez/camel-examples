@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.2.2.RELEASE</version>
+    </parent>
+
     <groupId>be.arndep.camel</groupId>
     <artifactId>camel-examples</artifactId>
     <packaging>pom</packaging>
@@ -23,12 +29,12 @@
         <dbcp2.version>2.0.1</dbcp2.version>
         <h2db.version>1.4.184</h2db.version>
         <pax-exam.version>4.4.0</pax-exam.version>
-        <karaf.version>3.0.2</karaf.version>
+        <karaf.version>3.0.3</karaf.version>
         <slf4j.version>1.7.9</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <spring-boot.version>1.2.1.RELEASE</spring-boot.version>
-        <jackson.mr.bean.version>2.4.1</jackson.mr.bean.version>
-        <lombok.version>1.14.8</lombok.version>
+        <!--<spring-boot.version>1.2.1.RELEASE</spring-boot.version>-->
+        <jackson.mr.bean.version>2.5.1</jackson.mr.bean.version>
+        <lombok.version>1.16.2</lombok.version>
 
         <java.version>1.8</java.version>
         <maven-compiler-plugin-version>2.5.1</maven-compiler-plugin-version>
@@ -63,15 +69,6 @@
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.compendium</artifactId>
                 <version>5.0.0</version>
-            </dependency>
-            <!--Spring boot dependencies-->
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
             <!--Lombok-->
             <dependency>
@@ -216,6 +213,13 @@
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-mrbean</artifactId>
                 <version>${jackson.mr.bean.version}</version>
+            </dependency>
+            <!--JSONPath-->
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path-assert</artifactId>
+                <version>${json-path.version}</version>
+                <scope>test</scope>
             </dependency>
             <!-- Pax Exam Dependencies -->
             <dependency>
