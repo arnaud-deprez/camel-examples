@@ -11,8 +11,7 @@
 
     <artifactId>rest</artifactId>
     <modules>
-        <module>account-rest-api</module>
-        <module>account-rest-core</module>
+        <module>account-rest</module>
         <module>account-spring-boot</module>
     </modules>
     <packaging>pom</packaging>

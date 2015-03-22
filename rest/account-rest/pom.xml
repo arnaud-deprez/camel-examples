@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>account-rest-core</artifactId>
-    <name>Arndep :: Camel Examples : account-rest-core</name>
+    <artifactId>account-rest</artifactId>
+    <name>Arndep :: Camel Examples : account-rest</name>
     <packaging>bundle</packaging>
 
     <dependencies>
@@ -21,11 +21,6 @@
         <dependency>
             <groupId>be.arndep.camel</groupId>
             <artifactId>shared</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>be.arndep.camel</groupId>
-            <artifactId>account-rest-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

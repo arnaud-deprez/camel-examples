@@ -14,6 +14,7 @@
     <artifactId>camel-examples</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+    <name>Arndep :: Camel Examples : parent</name>
 
     <modules>
         <module>shared</module>
