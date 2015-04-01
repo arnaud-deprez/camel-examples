@@ -33,6 +33,7 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
 		return camelContext -> {
 			camelContext.setUseMDCLogging(true);
 			camelContext.setUseBreadcrumb(true);
+            camelContext.getRestConfiguration().setComponent("servlet");
 		};
 	}
 
