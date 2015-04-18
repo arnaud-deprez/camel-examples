@@ -29,4 +29,23 @@
         <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
         <bundle>mvn:be.arndep.camel/xa-jms-sql-blueprint/${project.version}</bundle>
     </feature>
+
+    <feature name="xa-jms-jpa-blueprint" version="${project.version}">
+        <feature>jndi</feature>
+        <feature>transaction</feature>
+        <feature>jpa</feature>
+        <feature>hibernate</feature>
+        <feature>pax-jdbc</feature>
+        <feature>pax-jdbc-pool-aries</feature>
+        <feature>camel</feature>
+        <feature>camel-metrics</feature>
+        <feature>activemq</feature>
+        <feature>activemq-broker</feature>
+        <feature>activemq-camel</feature>
+        <bundle>mvn:com.h2database/h2/${h2db.version}</bundle>
+        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/h2-datasource</bundle>
+        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/activemq-component</bundle>
+        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle>mvn:be.arndep.camel/xa-jms-jpa-blueprint/${project.version}</bundle>
+    </feature>
 </features>

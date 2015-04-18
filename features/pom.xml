@@ -47,11 +47,6 @@
                                     <type>xml</type>
                                     <classifier>h2-datasource</classifier>
                                 </artifact>
-                                <artifact>
-                                    <file>${project.basedir}/target/classes/cfg/org.ops4j.datasource-h2test.cfg</file>
-                                    <type>cfg</type>
-                                    <classifier>org.ops4j.datasource-h2test</classifier>
-                                </artifact>
                             </artifacts>
                         </configuration>
                     </execution>

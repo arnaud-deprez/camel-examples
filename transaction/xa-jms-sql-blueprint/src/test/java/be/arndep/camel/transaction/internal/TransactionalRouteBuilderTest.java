@@ -1,7 +1,9 @@
 package be.arndep.camel.transaction.internal;
 
 import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
@@ -13,6 +15,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.*;
@@ -56,7 +62,11 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		Assertions.assertThat(transactionTemplate).isNotNull();
 		
 		transactionTemplate.execute(s -> {
-			jdbcTemplate.execute("CREATE TABLE message (id BIGINT auto_increment primary key, content varchar(255));");
+			jdbcTemplate.execute("CREATE TABLE message (" +
+					"id BIGINT auto_increment primary key, " +
+					"createddate TIMESTAMP, " +
+					"lastmodifieddate TIMESTAMP, " +
+					"content VARCHAR(255));");
 			return s;
 		});
 	}
@@ -75,11 +85,11 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		final String routeId = "transactionalRoute-1";
 		Assertions.assertThat(context.getRouteDefinition(routeId)).isNotNull();
 
-		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.1");
+		final MockEndpoint outputQueue = getMockEndpoint("mock://xa.jms.sql.out.1");
 		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				from("activemq:queue://message.out.1")
+				from("activemq:queue://xa.jms.sql.out.1")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
@@ -90,10 +100,15 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		outputQueue.expectedBodiesReceived(body);
 		dlq.expectedMessageCount(0);
 
-		template.sendBody("activemq:queue://message.in.1", body);
+		template.sendBody("activemq:queue://xa.jms.sql.in.1", body);
 
 		assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
 		Assertions.assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "message")).isEqualTo(1);
+		List<Map<String, Object>> result = jdbcTemplate.queryForList("SELECT createddate, lastmodifieddate, content FROM MESSAGE");
+		Assertions.assertThat(result).hasSize(1);
+		Assertions.assertThat(result.get(0))
+				.containsKeys("createddate", "lastmodifieddate", "content")
+				.containsValue(body);
 	}
 
 	@Test
@@ -101,11 +116,11 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		final String routeId = "transactionalRoute-2";
 		Assertions.assertThat(context.getRouteDefinition(routeId)).isNotNull();
 
-		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.2");
+		final MockEndpoint outputQueue = getMockEndpoint("mock://xa.jms.sql.out.2");
 		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				from("activemq:queue://message.out.2")
+				from("activemq:queue://xa.jms.sql.out.2")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
@@ -116,7 +131,7 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		dlq.expectedMessageCount(1);
 		dlq.expectedBodiesReceived(body);
 
-		template.sendBody("activemq:queue://message.in.2", body);
+		template.sendBody("activemq:queue://xa.jms.sql.in.2", body);
 
 		assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
 		Assertions.assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "message")).isEqualTo(0);
@@ -127,11 +142,11 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		final String routeId = "transactionalRoute-3";
 		Assertions.assertThat(context.getRouteDefinition(routeId)).isNotNull();
 
-		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.3");
+		final MockEndpoint outputQueue = getMockEndpoint("mock://xa.jms.sql.out.3");
 		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				from("activemq:queue://message.out.3")
+				from("activemq:queue://xa.jms.sql.out.3")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
@@ -142,7 +157,7 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		dlq.expectedMessageCount(1);
 		dlq.expectedBodiesReceived(body);
 
-		template.sendBody("activemq:queue://message.in.3", body);
+		template.sendBody("activemq:queue://xa.jms.sql.in.3", body);
 
 		assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
 		Assertions.assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "message")).isEqualTo(0);
@@ -153,11 +168,11 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		final String routeId = "transactionalRoute-4";
 		Assertions.assertThat(context.getRouteDefinition(routeId)).isNotNull();
 
-		final MockEndpoint outputQueue = getMockEndpoint("mock://message.out.4");
+		final MockEndpoint outputQueue = getMockEndpoint("mock://xa.jms.sql.out.4");
 		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				from("activemq:queue://message.out.4")
+				from("activemq:queue://xa.jms.sql.out.4")
 						.log("@@@ Receive message ${body}")
 						.to(outputQueue);
 			}
@@ -168,7 +183,7 @@ public class TransactionalRouteBuilderTest extends CamelBlueprintTestSupport {
 		dlq.expectedMessageCount(1);
 		dlq.expectedBodiesReceived(body);
 
-		template.sendBody("activemq:queue://message.in.4", body);
+		template.sendBody("activemq:queue://xa.jms.sql.in.4", body);
 
 		assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
 		Assertions.assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "message")).isEqualTo(0);

@@ -4,16 +4,16 @@
 
     <cm:property-placeholder persistent-id="be.arndep.activemq.pool">
         <cm:default-properties>
-            <cm:property name="url" value="tcp://localhost:61616"/>
-            <cm:property name="user" value="karaf"/>
-            <cm:property name="password" value="karaf"/>
-            <cm:property name="broker-name" value="amq-broker"/>
-            <cm:property name="maxConnections" value="8"/>
-            <cm:property name="maximumRedeliveries" value="0"/>
+            <cm:property name="broker.url" value="tcp://localhost:61616"/>
+            <cm:property name="broker.user" value="karaf"/>
+            <cm:property name="broker.password" value="karaf"/>
+            <cm:property name="broker.name" value="amq-broker"/>
+            <cm:property name="broker.xa.maxConnections" value="8"/>
+            <cm:property name="broker.xa.maximumRedeliveries" value="0"/>
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <!--PlatformTransactionManager-->
+    <!--TransactionManager-->
     <reference id="transactionManager" interface="javax.transaction.TransactionManager"/>
     <reference id="platformTransactionManager" interface="org.springframework.transaction.PlatformTransactionManager"/>
 
@@ -21,25 +21,25 @@
     <bean id="resourceManager" class="org.apache.activemq.pool.ActiveMQResourceManager" init-method="recoverResource">
         <property name="transactionManager" ref="transactionManager" />
         <property name="connectionFactory" ref="pooledJmsXaConnectionFactory" />
-        <property name="resourceName" value="${broker-name}" />
-    </bean>
-
-    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.JcaPooledConnectionFactory" init-method="start" destroy-method="stop">
-        <property name="name" value="${broker-name}" />
-        <property name="maxConnections" value="${maxConnections}" />
-        <property name="connectionFactory" ref="jmsXaConnectionFactory" />
-        <property name="transactionManager" ref="transactionManager"/>
+        <property name="resourceName" value="${broker.name}" />
     </bean>
 
     <bean id="jmsXaConnectionFactory" class="org.apache.activemq.ActiveMQXAConnectionFactory">
-        <property name="userName" value="${user}"/>
-        <property name="password" value="${password}"/>
-        <property name="brokerURL" value="${url}"/>
+        <property name="userName" value="${broker.user}"/>
+        <property name="password" value="${broker.password}"/>
+        <property name="brokerURL" value="${broker.url}"/>
         <property name="redeliveryPolicy">
             <bean class="org.apache.activemq.RedeliveryPolicy">
-                <property name="maximumRedeliveries" value="${maximumRedeliveries}"/>
+                <property name="maximumRedeliveries" value="${broker.xa.maximumRedeliveries}"/>
             </bean>
         </property>
+    </bean>
+
+    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.JcaPooledConnectionFactory" init-method="start" destroy-method="stop">
+        <property name="name" value="${broker.name}" />
+        <property name="maxConnections" value="${broker.xa.maxConnections}" />
+        <property name="connectionFactory" ref="jmsXaConnectionFactory" />
+        <property name="transactionManager" ref="transactionManager"/>
     </bean>
 
     <bean id="jmsTxConfig" class="org.apache.camel.component.jms.JmsConfiguration">

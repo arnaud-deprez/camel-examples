@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             version="1.0">
+    <persistence-unit name="managed-jpa" transaction-type="JTA">
+        <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/h2test)</jta-data-source>
+        <class>be.arndep.camel.transaction.jpa.message.Message</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,6 +1,8 @@
 xa-jms-sql-blueprint
 ====================
 
+//TODO: make tests
+
 ##Installation
 
 ###Installation on Karaf 2
@@ -10,7 +12,7 @@ features:addurl mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.5.0/xml/features
 features:chooseUrl camel 2.15.1
 features:chooseUrl activemq 5.11.1
 features:addurl mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
-features:install -v xa-jms-sql-blueprint
+features:install -v xa-jms-jpa-blueprint
 ```
 
 ####Hawtio
@@ -35,7 +37,7 @@ repo-add mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.5.0/xml/features
 repo-add camel 2.15.1
 repo-add activemq 5.11.1
 repo-add mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
-install -v xa-jms-sql-blueprint
+install -v xa-jms-jpa-blueprint
 ```
 
 If your are not using the subshell, you can prefix all the previous commands with 'feature:'.

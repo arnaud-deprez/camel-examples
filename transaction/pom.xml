@@ -13,5 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>xa-jms-sql-blueprint</module>
+        <module>xa-jms-jpa-blueprint</module>
     </modules>
 </project>
