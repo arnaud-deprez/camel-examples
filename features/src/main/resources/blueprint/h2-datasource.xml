@@ -20,7 +20,7 @@
 
     <cm:property-placeholder persistent-id="be.arndep.camel.h2">
         <cm:default-properties>
-            <cm:property name="db.url" value="jdbc:h2:tcp://h2db:1521/opt/h2-data"/>
+            <cm:property name="db.url" value="jdbc:h2:tcp://localhost:1521/opt/h2-data"/>
             <cm:property name="db.user" value="sa"/>
             <cm:property name="db.password" value=""/>
         </cm:default-properties>
