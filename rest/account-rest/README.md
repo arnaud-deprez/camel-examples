@@ -6,7 +6,7 @@ Account REST
 ###Installation on Karaf 2
 
 ```sh
-features:chooseUrl camel 2.15.1
+features:chooseUrl camel 2.15.2
 features:addurl mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
 features:install -v -c account-rest
 ```
@@ -22,7 +22,7 @@ feature
 And then, run the following commands:
 
 ```sh
-repo-add camel 2.15.1
+repo-add camel 2.15.2
 repo-add mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
 install -v -c account-rest
 ```

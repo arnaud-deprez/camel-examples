@@ -9,7 +9,7 @@ xa-jms-sql-blueprint
 
 ```sh
 features:addurl mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.5.0/xml/features
-features:chooseUrl camel 2.15.1
+features:chooseUrl camel 2.15.2
 features:chooseUrl activemq 5.11.1
 features:addurl mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
 features:install -v xa-jms-jpa-blueprint
@@ -34,7 +34,7 @@ And then, run the following commands:
 
 ```sh
 repo-add mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.5.0/xml/features
-repo-add camel 2.15.1
+repo-add camel 2.15.2
 repo-add activemq 5.11.1
 repo-add mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
 install -v xa-jms-jpa-blueprint

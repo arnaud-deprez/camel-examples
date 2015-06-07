@@ -24,11 +24,11 @@
     </modules>
 
     <properties>
-        <camel.version>2.15.1</camel.version>
+        <camel.version>2.15.2</camel.version>
         <activemq.version>5.11.1</activemq.version>
         <hibernate.version>4.3.7.Final</hibernate.version>
         <dbcp2.version>2.0.1</dbcp2.version>
-        <h2db.version>1.4.186</h2db.version>
+        <h2db.version>1.4.187</h2db.version>
         <pax-exam.version>4.4.0</pax-exam.version>
         <karaf.version>3.0.3</karaf.version>
         <slf4j.version>1.7.12</slf4j.version>
