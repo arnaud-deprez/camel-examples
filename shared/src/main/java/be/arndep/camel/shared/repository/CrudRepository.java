@@ -9,8 +9,8 @@ import java.util.Optional;
  */
 public interface CrudRepository<T, K extends Serializable> {
     T create(T t);
-    Optional<T> read(K id);
-    List<T> readAll(Optional<Long> offset, Optional<Long> limit);
+    Optional<T> find(K id);
+    List<T> findAll(Optional<Long> page, Optional<Long> limit);
     T update(T t);
     boolean delete(T t);
     boolean delete(K id);

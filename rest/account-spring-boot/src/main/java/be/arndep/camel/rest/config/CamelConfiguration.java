@@ -1,10 +1,11 @@
 package be.arndep.camel.rest.config;
 
-import be.arndep.camel.rest.account.internal.route.RestRouteBuilder;
+import be.arndep.camel.account.core.rest.BankAccountRestServiceRoute;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.component.swagger.DefaultCamelSwaggerServlet;
+import org.apache.camel.spi.RestConfiguration;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -33,6 +34,10 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
 		return camelContext -> {
 			camelContext.setUseMDCLogging(true);
 			camelContext.setUseBreadcrumb(true);
+            /*<restConfiguration bindingMode="json" component="{{camel.rest.component}}" port="{{camel.rest.port}}" contextPath="{{camel.rest.contextPath}}">
+            <dataFormatProperty key="prettyPrint" value="{{camel.dataFormat.prettyPrint}}"/>
+            </restConfiguration>*/
+            camelContext.getRestConfiguration().setBindingMode(RestConfiguration.RestBindingMode.json);
             camelContext.getRestConfiguration().setComponent("servlet");
 		};
 	}
@@ -63,7 +68,7 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
 	 */
     @Bean
     public RoutesBuilder router() {
-        return new RestRouteBuilder();
+        return new BankAccountRestServiceRoute();
     }
 
     /**
@@ -79,6 +84,7 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
         params.put("api.termsOfServiceUrl", "http://termsofservice.org");
         params.put("api.license", "LICENSE");
         params.put("api.licenseUrl", "License URL");
+        params.put("cors", "true");
         swagger.setInitParameters(params);
         return swagger;
     }

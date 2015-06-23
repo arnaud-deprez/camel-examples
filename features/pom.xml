@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>features</artifactId>
+    <name>Arndep :: Camel Examples: features</name>
     <packaging>pom</packaging>
 
     <build>
@@ -46,6 +47,16 @@
                                     <file>${project.basedir}/target/classes/blueprint/h2-datasource.xml</file>
                                     <type>xml</type>
                                     <classifier>h2-datasource</classifier>
+                                </artifact>
+                                <artifact>
+                                    <file>${project.basedir}/target/classes/blueprint/camel-http-servlet.xml</file>
+                                    <type>xml</type>
+                                    <classifier>camel-http-servlet</classifier>
+                                </artifact>
+                                <artifact>
+                                    <file>${project.basedir}/target/classes/blueprint/camel-swagger-servlet.xml</file>
+                                    <type>xml</type>
+                                    <classifier>camel-swagger-servlet</classifier>
                                 </artifact>
                             </artifacts>
                         </configuration>

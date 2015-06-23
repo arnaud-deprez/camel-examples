@@ -11,16 +11,18 @@ import java.util.Collection;
 public final class Link {
 	public static final String SELF_REL = "self";
 
-	private String rel;
-	private String href;
-	private Collection<String> types;
-	private Collection<String> methods;
+	private final String rel;
+	private final String href;
+	private final boolean templated;
+	private final Collection<String> types;
+	private final Collection<String> methods;
 
 	private Link(final Builder builder) {
 		rel = builder.rel;
 		href = builder.href;
 		types = builder.types.isEmpty() ? null : builder.types;
 		methods = builder.methods.isEmpty() ? null : builder.methods;
+		templated = builder.templated;
 	}
 
 	public static Builder newBuilder() {
@@ -33,6 +35,10 @@ public final class Link {
 
 	public String getHref() {
 		return href;
+	}
+
+	public boolean isTemplated() {
+		return templated;
 	}
 
 	public Collection<String> getTypes() {
@@ -49,10 +55,12 @@ public final class Link {
 		private String href;
 		private Collection<String> types;
 		private Collection<String> methods;
+		private boolean templated;
 
 		private Builder() {
 			types = new ArrayList<>();
 			methods = new ArrayList<>();
+			templated = false;
 		}
 
 		public Builder rel(final String rel) {
@@ -72,6 +80,11 @@ public final class Link {
 
 		public Builder withMethods(final String... methods) {
 			this.methods.addAll(Arrays.asList(methods));
+			return this;
+		}
+
+		public Builder templated(boolean templated) {
+			this.templated = templated;
 			return this;
 		}
 

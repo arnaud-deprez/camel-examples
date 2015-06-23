@@ -1,8 +1,8 @@
 package be.arndep.camel.rest.config;
 
-import be.arndep.camel.rest.account.internal.data.AccountMemoryRepositoryImpl;
-import be.arndep.camel.rest.account.internal.domain.AccountRepository;
-import be.arndep.camel.rest.account.internal.domain.AccountService;
+import be.arndep.camel.account.core.services.BankAccountService;
+import be.arndep.camel.account.core.domain.BankAccountRepository;
+import be.arndep.camel.account.core.repositories.impl.BankAccountMemoryRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,12 +13,12 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
     
     @Bean
-    public AccountService accountService() {
-        return new AccountService(accountRepository());
+    public BankAccountService bankAccountService() {
+        return new BankAccountService(bankAccountRepository());
     }
     
     @Bean
-    public AccountRepository accountRepository() {
-        return new AccountMemoryRepositoryImpl();
+    public BankAccountRepository bankAccountRepository() {
+        return new BankAccountMemoryRepositoryImpl();
     }
 }

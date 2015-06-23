@@ -25,15 +25,15 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Optional<Message> read(final Long id) {
+    public Optional<Message> find(final Long id) {
         return Optional.ofNullable(entityManager.find(Message.class, id));
     }
 
     @Override
-    public List<Message> readAll(final Optional<Long> offset, final Optional<Long> limit) {
+    public List<Message> findAll(final Optional<Long> page, final Optional<Long> limit) {
         return entityManager.createQuery("select m from Message m order by m.lastModifiedDate")
             .setMaxResults(limit.orElse(Long.valueOf(20)).intValue())
-            .setFirstResult(offset.orElse(Long.valueOf(0)).intValue())
+            .setFirstResult(page.orElse(Long.valueOf(0)).intValue())
             .getResultList();
     }
 

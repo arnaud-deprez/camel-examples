@@ -12,6 +12,13 @@
     <artifactId>shared</artifactId>
     <packaging>bundle</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <!-- to generate the MANIFEST-FILE of the bundle -->

@@ -1,0 +1,25 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
+
+    <bean id="swaggerCamelServlet" class="org.apache.camel.component.swagger.DefaultCamelSwaggerServlet"/>
+
+    <service ref="swaggerCamelServlet" interface="javax.servlet.Servlet">
+        <service-properties>
+            <entry key="alias" value="/camel/api/api-docs"/>
+
+            <!-- init-params -->
+            <entry key="init.api.version" value="1.0.0-SNAPSHOT"/>
+            <entry key="init.api.path" value="camel/api/api-docs"/>
+            <entry key="init.base.path" value="camel/api"/>
+            <entry key="init.api.title" value="API title"/>
+            <entry key="init.api.description" value="API description"/>
+            <entry key="init.api.termsOfServiceUrl" value="http://arndep.be"/>
+            <entry key="init.api.contact" value="arnaudeprez@gmail.com"/>
+            <entry key="init.api.license" value="LICENSE"/>
+            <entry key="init.api.licenseUrl" value="licenseUrl"/>
+            <entry key="init.servlet-name" value="ApiDeclarationServlet"/>
+            <entry key="init.cors" value="true"/>
+        </service-properties>
+    </service>
+
+</blueprint>

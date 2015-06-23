@@ -24,7 +24,17 @@
     <dependencies>
         <dependency>
             <groupId>be.arndep.camel</groupId>
-            <artifactId>account-rest</artifactId>
+            <artifactId>account-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>be.arndep.camel</groupId>
+            <artifactId>account-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>be.arndep.camel</groupId>
+            <artifactId>account-repository-memory-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--Camel Spring support-->

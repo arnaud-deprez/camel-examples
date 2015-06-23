@@ -1,0 +1,24 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
+
+    <bean id="camelServlet" class="org.apache.camel.component.servlet.CamelHttpTransportServlet"/>
+
+    <!--
+        Enlist it in OSGi service registry
+        This will cause two things:
+        1) As the pax web whiteboard extender is running the CamelServlet will
+           be registered with the OSGi HTTP Service
+        2) It will trigger the HttpRegistry in other bundles so the servlet is
+           made known there too
+    -->
+    <service ref="camelServlet" interface="javax.servlet.Servlet">
+        <service-properties>
+            <entry key="alias" value="/camel/api" />
+
+            <!-- init-params -->
+            <entry key="init.servlet-name" value="CamelServlet"/>
+            <entry key="init.matchOnUriPrefix" value="true" />
+        </service-properties>
+    </service>
+
+</blueprint>
