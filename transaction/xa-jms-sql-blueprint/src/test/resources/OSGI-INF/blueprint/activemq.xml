@@ -9,8 +9,7 @@
         <property name="resourceName" value="activemq.default" />
     </bean>
 
-    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.JcaPooledConnectionFactory" init-method="start" destroy-method="stop">
-        <property name="name" value="amq-broker" />
+    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.XaPooledConnectionFactory" init-method="start" destroy-method="stop">
         <property name="maxConnections" value="2" />
         <property name="connectionFactory" ref="jmsXaConnectionFactory" />
         <property name="transactionManager" ref="transactionManager"/>
@@ -29,9 +28,6 @@
         <property name="connectionFactory" ref="pooledJmsXaConnectionFactory"/>
         <property name="transactionManager" ref="transactionManager"/>
         <property name="transacted" value="false"/>
-        <!--Attempt to optimize the perf http://camel.apache.org/jms.html#JMS-transactedConsumption-->
-        <property name="lazyCreateTransactionManager" value="false"/>
-        <property name="cacheLevelName" value="CACHE_CONNECTION"/>
     </bean>
 
     <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">

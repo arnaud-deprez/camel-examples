@@ -4,7 +4,7 @@
 
     <cm:property-placeholder persistent-id="be.arndep.activemq.pool">
         <cm:default-properties>
-            <cm:property name="broker.url" value="tcp://localhost:61616"/>
+            <cm:property name="broker.url" value="failover:(nio://localhost:61616)"/>
             <cm:property name="broker.user" value="karaf"/>
             <cm:property name="broker.password" value="karaf"/>
             <cm:property name="broker.name" value="amq-broker"/>
@@ -35,8 +35,7 @@
         </property>
     </bean>
 
-    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.JcaPooledConnectionFactory" init-method="start" destroy-method="stop">
-        <property name="name" value="${broker.name}" />
+    <bean id="pooledJmsXaConnectionFactory" class="org.apache.activemq.pool.XaPooledConnectionFactory" init-method="start" destroy-method="stop">
         <property name="maxConnections" value="${broker.xa.maxConnections}" />
         <property name="connectionFactory" ref="jmsXaConnectionFactory" />
         <property name="transactionManager" ref="transactionManager"/>
@@ -47,9 +46,6 @@
         <property name="transactionManager" ref="platformTransactionManager"/>
         <!--The component is not in SESSION_TRANSACTED mode as it's enlisted in a XA transaction-->
         <property name="transacted" value="false"/>
-        <!--Attempt to optimize the perf http://camel.apache.org/jms.html#JMS-transactedConsumption-->
-        <property name="lazyCreateTransactionManager" value="false"/>
-        <property name="cacheLevelName" value="CACHE_CONNECTION"/>
     </bean>
 
     <bean id="activemqXa" class="org.apache.activemq.camel.component.ActiveMQComponent">
