@@ -25,6 +25,8 @@
     <cm:property-placeholder persistent-id="be.arndep.camel.rest.accounts">
         <cm:default-properties>
             <cm:property name="camel.rest.component" value="dummy-rest"/>
+            <cm:property name="camel.rest.contextPath" value="camel/api"/>
+            <cm:property name="camel.rest.port" value="8181"/>
             <cm:property name="camel.dataFormat.prettyPrint" value="true"/>
             <cm:property name="camel.trace" value="true"/>
         </cm:default-properties>
