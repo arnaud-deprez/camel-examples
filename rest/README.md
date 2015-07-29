@@ -14,7 +14,7 @@ features:addurl mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
 features:install -v account-rest
 ```
 
-###Installation on Karaf 3
+###Installation on Karaf 3 & 4
 
 Go the subshell feature:
 

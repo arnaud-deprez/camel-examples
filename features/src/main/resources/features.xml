@@ -1,4 +1,4 @@
-<features name="camel-examples" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
+<features name="camel-examples" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0">
     <feature name="account-rest" version="${project.version}">
         <feature>war</feature>
         <feature>camel</feature>
@@ -15,8 +15,8 @@
         </config>
         <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/camel-http-servlet</bundle>
         <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/camel-swagger-servlet</bundle>
-        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
-        <bundle>mvn:be.arndep.camel/account-api/${project.version}</bundle>
+        <bundle dependency="true">mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle dependency="true">mvn:be.arndep.camel/account-api/${project.version}</bundle>
         <bundle>mvn:be.arndep.camel/account-core/${project.version}</bundle>
     </feature>
 
@@ -29,12 +29,12 @@
         <feature>camel-metrics</feature>
         <feature>camel-sql</feature>
         <feature>activemq</feature>
-        <feature>activemq-broker</feature>
+        <feature>activemq-broker-noweb</feature>
         <feature>activemq-camel</feature>
-        <bundle>mvn:com.h2database/h2/${h2db.version}</bundle>
+        <bundle dependency="true">mvn:com.h2database/h2/${h2db.version}</bundle>
         <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/h2-datasource</bundle>
         <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/activemq-component</bundle>
-        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle dependency="true">mvn:be.arndep.camel/shared/${project.version}</bundle>
         <bundle>mvn:be.arndep.camel/xa-jms-sql-blueprint/${project.version}</bundle>
     </feature>
 
@@ -48,12 +48,12 @@
         <feature>camel</feature>
         <feature>camel-metrics</feature>
         <feature>activemq</feature>
-        <feature>activemq-broker</feature>
+        <feature>activemq-broker-noweb</feature>
         <feature>activemq-camel</feature>
-        <bundle>mvn:com.h2database/h2/${h2db.version}</bundle>
+        <bundle dependency="true">mvn:com.h2database/h2/${h2db.version}</bundle>
         <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/h2-datasource</bundle>
         <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/activemq-component</bundle>
-        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle dependency="true">mvn:be.arndep.camel/shared/${project.version}</bundle>
         <bundle>mvn:be.arndep.camel/xa-jms-jpa-blueprint/${project.version}</bundle>
     </feature>
 </features>
