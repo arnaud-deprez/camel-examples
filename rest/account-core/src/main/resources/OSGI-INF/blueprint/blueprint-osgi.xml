@@ -24,13 +24,18 @@
 
     <cm:property-placeholder persistent-id="be.arndep.camel.rest.accounts">
         <cm:default-properties>
-            <cm:property name="camel.rest.component" value="servlet"/>
-            <cm:property name="camel.rest.port" value="8181"/>
-            <cm:property name="camel.rest.contextPath" value="camel/api"/>
+            <cm:property name="camel.rest.component" value="netty4-http"/>
+            <cm:property name="camel.rest.port" value="8888"/>
+            <!-- Empty because it's currently ignored by netty-->
+            <cm:property name="camel.rest.contextPath" value=""/>
             <cm:property name="camel.dataFormat.prettyPrint" value="true"/>
             <cm:property name="camel.trace" value="false"/>
         </cm:default-properties>
     </cm:property-placeholder>
+
+    <!-- Netty -->
+    <!-- reference the shared http server -->
+    <reference id="sharedNettyHttpServer" interface="org.apache.camel.component.netty4.http.NettySharedHttpServer"/>
 
     <!-- builder factory provider -->
     <service ref="createAccountBuilderFactory" interface="be.arndep.camel.account.api.CreateAccountBuilderFactory"/>

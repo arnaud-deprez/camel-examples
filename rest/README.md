@@ -27,14 +27,14 @@ And then, run the following commands:
 ```sh
 repo-add camel 2.15.2
 repo-add mvn:be.arndep.camel/features/1.0.0-SNAPSHOT/xml/features
-install -v -c account-rest
+install -v account-rest
 ```
 
 If your are not using the subshell, you can prefix all the previous commands with 'feature:'.
 
 ###Play
 
-Once it's installed, you can go to [http://localhost:8181/camel/api/accounts](http://localhost:8181/camel/api/accounts) with your favourite browser.
+Once it's installed, you can go to [http://localhost:8181/bankaccounts](http://localhost:8181/bankaccounts) with your favourite browser.
 
 ##account-spring-boot
 

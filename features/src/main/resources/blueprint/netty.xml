@@ -1,0 +1,35 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
+           http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <cm:property-placeholder persistent-id="org.apache.netty">
+        <cm:default-properties>
+            <cm:property name="netty.host" value="0.0.0.0"/>
+            <cm:property name="netty.port" value="8888"/>
+            <cm:property name="netty.backlog" value="50"/>
+            <cm:property name="netty.compression" value="true"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <!-- netty http bootstrap configuration -->
+    <bean id="configuration" class="org.apache.camel.component.netty4.http.NettySharedHttpServerBootstrapConfiguration">
+        <!-- the port and host is mandatory and must be set -->
+        <property name="host" value="${netty.host}"/>
+        <property name="port" value="${netty.port}"/>
+        <!-- additional options -->
+        <property name="backlog" value="${netty.backlog}"/>
+        <property name="compression" value="${netty.compression}"/>
+    </bean>
+
+    <!-- the netty http server -->
+    <bean id="httpServer" class="org.apache.camel.component.netty4.http.DefaultNettySharedHttpServer"
+          init-method="start" destroy-method="stop">
+        <property name="nettyServerBootstrapConfiguration" ref="configuration"/>
+    </bean>
+
+    <!-- export in the OSGi server registry so we can use it from the Camel application bundles -->
+    <service ref="httpServer" interface="org.apache.camel.component.netty4.http.NettySharedHttpServer"/>
+
+</blueprint>
