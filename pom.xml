@@ -25,17 +25,17 @@
 
     <properties>
         <camel.version>2.15.2</camel.version>
-        <activemq.version>5.11.1</activemq.version>
+        <activemq.version>5.12.0</activemq.version>
         <hibernate.version>4.3.7.Final</hibernate.version>
-        <org.apache.aries.transaction.blueprint.version>1.0.2</org.apache.aries.transaction.blueprint.version>
-        <org.apache.aries.transaction.manager.version>1.2.0</org.apache.aries.transaction.manager.version>
-        <dbcp2.version>2.0.1</dbcp2.version>
-        <h2db.version>1.4.187</h2db.version>
+        <org.apache.aries.transaction.blueprint.version>1.1.1</org.apache.aries.transaction.blueprint.version>
+        <org.apache.aries.transaction.manager.version>1.3.0</org.apache.aries.transaction.manager.version>
+        <dbcp2.version>2.1.1</dbcp2.version>
+        <h2db.version>1.4.189</h2db.version>
         <slf4j.version>1.7.12</slf4j.version>
         <logback.version>1.1.3</logback.version>
-        <lombok.version>1.16.4</lombok.version>
-        <assertj.version>3.0.0</assertj.version>
-        <groovy.version>2.4.3</groovy.version>
+        <lombok.version>1.16.6</lombok.version>
+        <assertj.version>3.2.0</assertj.version>
+        <groovy.version>2.4.4</groovy.version>
         <spock.version>1.0-groovy-2.4</spock.version>
 
         <java.version>1.8</java.version>
@@ -62,9 +62,19 @@
                 <version>1</version>
             </dependency>
             <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
-                <version>6.0.0</version>
+                <version>5.0.0</version>
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
