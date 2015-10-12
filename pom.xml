@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.5.RELEASE</version>
-    </parent>
 
     <groupId>be.arndep.camel</groupId>
     <artifactId>camel-examples</artifactId>
-    <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>Arndep :: Camel Examples : parent</name>
 
     <modules>
@@ -24,37 +16,48 @@
     </modules>
 
     <properties>
-        <camel.version>2.15.2</camel.version>
-        <activemq.version>5.12.0</activemq.version>
-        <hibernate.version>4.3.7.Final</hibernate.version>
-        <org.apache.aries.transaction.blueprint.version>1.1.1</org.apache.aries.transaction.blueprint.version>
-        <org.apache.aries.transaction.manager.version>1.3.0</org.apache.aries.transaction.manager.version>
+        <activemq.version>5.13.0</activemq.version>
+        <asm.version>5.0.4</asm.version>
+        <assertj.version>3.2.0</assertj.version>
+        <build-helper-maven-plugin-version>1.9.1</build-helper-maven-plugin-version>
+        <camel.version>2.16.1</camel.version>
         <dbcp2.version>2.1.1</dbcp2.version>
+        <gmavenplus-plugin-version>1.5</gmavenplus-plugin-version>
+        <groovy.version>2.4.5</groovy.version>
         <h2db.version>1.4.189</h2db.version>
-        <slf4j.version>1.7.12</slf4j.version>
+        <hibernate.version>4.3.7.Final</hibernate.version>
+        <java.version>1.8</java.version>
+        <json-path.version>2.0.0</json-path.version>
         <logback.version>1.1.3</logback.version>
         <lombok.version>1.16.6</lombok.version>
-        <assertj.version>3.2.0</assertj.version>
-        <groovy.version>2.4.4</groovy.version>
-        <spock.version>1.0-groovy-2.4</spock.version>
-
-        <java.version>1.8</java.version>
-        <maven-resources-plugin-version>2.7</maven-resources-plugin-version>
+        <maven-bundle-plugin-version>3.0.1</maven-bundle-plugin-version>
         <maven-compiler-plugin-version>3.3</maven-compiler-plugin-version>
-        <maven-bundle-plugin-version>2.5.4</maven-bundle-plugin-version>
-        <build-helper-maven-plugin-version>1.9.1</build-helper-maven-plugin-version>
-        <gmavenplus-plugin-version>1.5</gmavenplus-plugin-version>
-
+        <maven-resources-plugin-version>2.7</maven-resources-plugin-version>
+        <org.apache.aries.transaction.blueprint.version>1.1.1</org.apache.aries.transaction.blueprint.version>
+        <org.apache.aries.transaction.manager.version>1.3.0</org.apache.aries.transaction.manager.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4j.version>1.7.12</slf4j.version>
+        <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
+        <spock.version>1.0-groovy-2.4</spock.version>
+        <spring-boot.version>1.3.1.RELEASE</spring-boot.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!--Specs-->
             <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>1.1.0.Final</version>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.2</version>
             </dependency>
             <dependency>
                 <groupId>javax.inject</groupId>
@@ -72,47 +75,18 @@
                 <version>1.1</version>
             </dependency>
             <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>5.0.0</version>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.1.0.Final</version>
             </dependency>
             <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.compendium</artifactId>
-                <version>5.0.0</version>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>javax.ws.rs-api</artifactId>
+                <version>2.0.1</version>
             </dependency>
-            <!--Lombok-->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--Log-->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>1.2</version>
-            </dependency>
-            <!--Camel-->
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-core</artifactId>
+                <artifactId>camel-bean-validator</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -122,32 +96,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-spring</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-spring-boot</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-metrics</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-restlet</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-swagger</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-servlet</artifactId>
+                <artifactId>camel-core</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -162,12 +111,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-sql</artifactId>
+                <artifactId>camel-jsonpath</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-bean-validator</artifactId>
+                <artifactId>camel-metrics</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -177,14 +126,84 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-test</artifactId>
+                <artifactId>camel-restlet</artifactId>
                 <version>${camel.version}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-test-blueprint</artifactId>
+                <artifactId>camel-servlet</artifactId>
                 <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-spring</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-spring-boot</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-sql</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-swagger-java</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <!--Hibernate-->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-osgi</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>5.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>5.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-debug-all</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <!--Log-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!--Lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2db.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--JSONPath-->
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path-assert</artifactId>
+                <version>${json-path.version}</version>
                 <scope>test</scope>
             </dependency>
             <!--ActiveMQ-->
@@ -200,30 +219,36 @@
                 <version>${activemq.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!--Hibernate-->
+            <!--Aries-->
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-osgi</artifactId>
-                <version>${hibernate.version}</version>
+                <groupId>org.apache.aries.transaction</groupId>
+                <artifactId>org.apache.aries.transaction.blueprint</artifactId>
+                <version>${org.apache.aries.transaction.blueprint.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries.transaction</groupId>
+                <artifactId>org.apache.aries.transaction.manager</artifactId>
+                <version>${org.apache.aries.transaction.manager.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test</artifactId>
+                <version>${camel.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test-blueprint</artifactId>
+                <version>${camel.version}</version>
+                <scope>test</scope>
             </dependency>
             <!--DB-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-dbcp2</artifactId>
                 <version>${dbcp2.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2db.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!--JSONPath-->
-            <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path-assert</artifactId>
-                <version>${json-path.version}</version>
                 <scope>test</scope>
             </dependency>
             <!-- Assertj -->
@@ -252,19 +277,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!--Aries-->
-            <dependency>
-                <groupId>org.apache.aries.transaction</groupId>
-                <artifactId>org.apache.aries.transaction.blueprint</artifactId>
-                <version>${org.apache.aries.transaction.blueprint.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.aries.transaction</groupId>
-                <artifactId>org.apache.aries.transaction.manager</artifactId>
-                <version>${org.apache.aries.transaction.manager.version}</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -273,12 +285,15 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>${maven-resources-plugin-version}</version>
-                    <configuration>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
+                    <groupId>com.github.ekryd.sortpom</groupId>
+                    <artifactId>sortpom-maven-plugin</artifactId>
+                    <version>${sortpom-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>${maven-bundle-plugin-version}</version>
+                    <extensions>true</extensions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -291,20 +306,12 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>${maven-bundle-plugin-version}</version>
-                    <extensions>true</extensions>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>${build-helper-maven-plugin-version}</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin-version}</version>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.gmavenplus</groupId>
@@ -325,25 +332,52 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin-version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
+                <groupId>com.github.ekryd.sortpom</groupId>
+                <artifactId>sortpom-maven-plugin</artifactId>
+                <configuration>
+                    <sortProperties>true</sortProperties>
+                    <nrOfIndentSpace>4</nrOfIndentSpace>
+                    <sortDependencies>scope,groupId,artifactId</sortDependencies>
+                    <sortPlugins>groupId,artifactId</sortPlugins>
+                    <keepBlankLines>true</keepBlankLines>
+                    <expandEmptyElements>false</expandEmptyElements>
+                    <lineSeparator>\n</lineSeparator>
+                    <predefinedSortOrder>custom_1</predefinedSortOrder>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>resources</id>
-                        <phase>generate-resources</phase>
                         <goals>
-                            <goal>resources</goal>
+                            <goal>sort</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>resources</id>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

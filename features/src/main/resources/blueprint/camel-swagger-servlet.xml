@@ -1,7 +1,7 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
+        >
 
-    <bean id="swaggerCamelServlet" class="org.apache.camel.component.swagger.DefaultCamelSwaggerServlet"/>
+    <bean id="swaggerCamelServlet" class="org.apache.camel.swagger.servlet.RestSwaggerServlet"/>
 
     <service ref="swaggerCamelServlet" interface="javax.servlet.Servlet">
         <service-properties>
@@ -19,6 +19,7 @@
             <entry key="init.api.licenseUrl" value="licenseUrl"/>
             <entry key="init.servlet-name" value="ApiDeclarationServlet"/>
             <entry key="init.cors" value="true"/>
+            <entry key="init.apiContextIdListing" value="true"/>
         </service-properties>
     </service>
 

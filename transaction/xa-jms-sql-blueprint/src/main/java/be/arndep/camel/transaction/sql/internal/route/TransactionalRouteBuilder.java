@@ -4,7 +4,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * Created by arnaud on 15/02/15.
@@ -15,6 +14,7 @@ public class TransactionalRouteBuilder extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
+		//@formatter:off
 		from("activemq:queue://xa.jms.sql.in.1")
 				.id("transactionalRoute-1")
 				.transacted()
@@ -50,5 +50,6 @@ public class TransactionalRouteBuilder extends RouteBuilder {
 				.to(SQL_ENDPOINT)
 				.to("activemq:queue://xa.jms.sql.out.4")
 				.throwException(new IOException("Forced Exception 4. This should provoke rollback"));
+		//@formatter:on
 	}
 }

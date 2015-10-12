@@ -21,6 +21,7 @@ public class BankAccountServiceRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
+		//@formatter:off
 		from(ACCOUNT_FIND_ALL)
 				.routeId("accounts-find-all")
 				.process(e -> {
@@ -61,5 +62,6 @@ public class BankAccountServiceRoute extends RouteBuilder {
 				.routeId("accouts-transfer")
 				.to("bean:bankAccountService?method=transfer(${header.from},${header.to},${body})")
 				.transform().method(ReadAccountMapper.class, "map");
+		//@formatter:on
 	}
 }

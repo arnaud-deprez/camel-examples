@@ -4,10 +4,10 @@ import be.arndep.camel.account.core.rest.BankAccountRestServiceRoute;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
-import org.apache.camel.component.swagger.DefaultCamelSwaggerServlet;
 import org.apache.camel.spi.RestConfiguration;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
+import org.apache.camel.swagger.servlet.RestSwaggerServlet;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
@@ -76,7 +76,7 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
      */
     @Bean
     public ServletRegistrationBean swaggerServlet() {
-        ServletRegistrationBean swagger = new ServletRegistrationBean(new DefaultCamelSwaggerServlet(), "/camel/api/api-docs/*");
+        ServletRegistrationBean swagger = new ServletRegistrationBean(new RestSwaggerServlet(), "/camel/api/api-docs/*");
         Map<String, String> params = new HashMap<>();
         params.put("base.path", "http://localhost:8080" + CamelConfiguration.CAMEL_URL_MAPPING.substring(0, CamelConfiguration.CAMEL_URL_MAPPING.length() - 2));
         params.put("api.title", "Camel REST Api Title");

@@ -2,12 +2,12 @@ package be.arndep.camel.rest.spring;
 
 import be.arndep.camel.account.api.CreateAccount;
 import be.arndep.camel.account.api.ReadAccount;
+import be.arndep.camel.account.core.domain.BankAccountRepository;
+import be.arndep.camel.account.core.rest.converter.ReadAccountResourceConverter;
 import be.arndep.camel.account.core.services.BankAccountService;
 import be.arndep.camel.account.core.services.mapper.CreateAccountMapper;
 import be.arndep.camel.account.core.services.mapper.ReadAccountMapper;
 import be.arndep.camel.account.core.services.mapper.ReadAccountsMapper;
-import be.arndep.camel.account.core.domain.BankAccountRepository;
-import be.arndep.camel.account.core.rest.converter.ReadAccountResourceConverter;
 import be.arndep.camel.shared.rest.Resource;
 import be.arndep.camel.shared.rest.Resources;
 import com.wordnik.swagger.annotations.Api;

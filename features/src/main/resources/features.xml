@@ -4,7 +4,8 @@
         <feature>camel-metrics</feature>
         <feature>camel-netty4-http</feature>
         <feature>camel-jackson</feature>
-        <feature>camel-swagger</feature>
+        <!-- This not yet available in OSGi-->
+        <feature>camel-swagger-java</feature>
         <feature>camel-bean-validator</feature>
         <feature>spring-web</feature>
         <!-- allow camel to access its own mbeans for karaf commands and other needs -->

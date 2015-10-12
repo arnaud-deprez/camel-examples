@@ -1,6 +1,5 @@
 package be.arndep.camel.account.core.rest;
 
-import be.arndep.camel.account.api.ReadAccount;
 import be.arndep.camel.account.core.api.impl.CreateAccountImpl;
 import be.arndep.camel.account.core.api.impl.ReadAccountImpl;
 import be.arndep.camel.account.core.domain.exceptions.BankAccountException;
@@ -13,12 +12,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 
+import static org.apache.camel.model.rest.RestParamType.path;
+
 /**
  * Created by arnaud on 30/06/15.
  */
 public class BankAccountRestServiceRoute extends BankAccountServiceRoute {
 	@Override
 	public void configure() throws Exception {
+		//@formatter:off
 		//Exception Handling
 		onException(BankAccountNotFoundException.class)
 				.handled(true)
@@ -74,6 +76,7 @@ public class BankAccountRestServiceRoute extends BankAccountServiceRoute {
 
 			.get("/{id}")
 				.description("Find a Bank account by id")
+				.param().name("id").type(path).description("The bank account's id").dataType("long").endParam()
 				.outType(ReadAccountImpl.class)
 				.route()
 					.to(ACCOUNT_FIND_ID)
@@ -83,6 +86,7 @@ public class BankAccountRestServiceRoute extends BankAccountServiceRoute {
 
 			.put("/{id}/close")
 				.description("Close an Bank account by id")
+				.param().name("id").type(path).description("The bank account's id to close").dataType("long").endParam()
 				.outType(ReadAccountImpl.class)
 				.route()
 					.to(ACCOUNT_CLOSE)
@@ -92,6 +96,7 @@ public class BankAccountRestServiceRoute extends BankAccountServiceRoute {
 
 			.post("/{id}/deposit")
 				.description("Add money to the Bank account")
+				.param().name("id").type(path).description("The bank account's id to deposit").dataType("long").endParam()
 				.type(BigDecimal.class)
 				.outType(ReadAccountImpl.class)
 				.route()
@@ -102,6 +107,7 @@ public class BankAccountRestServiceRoute extends BankAccountServiceRoute {
 
 			.post("/{id}/withdraw")
 				.description("Withdraw money to the Bank account")
+				.param().name("id").type(path).description("The bank account's id to withdraw").dataType("long").endParam()
 				.type(BigDecimal.class)
 				.outType(ReadAccountImpl.class)
 				.route()
@@ -112,6 +118,8 @@ public class BankAccountRestServiceRoute extends BankAccountServiceRoute {
 
 			.post("/{from}/transfer/{to}")
 				.description("Transfer money from one Bank account to another")
+				.param().name("from").type(path).description("The bank account's id from which money is withdrawn").dataType("long").endParam()
+				.param().name("to").type(path).description("The bank account's id to which money is deposited").dataType("long").endParam()
 				.type(BigDecimal.class)
 				.outType(ReadAccountImpl.class)
 				.route()
@@ -122,5 +130,6 @@ public class BankAccountRestServiceRoute extends BankAccountServiceRoute {
 
 		//Application Service Route
 		super.configure();
+		//@formatter:on
 	}
 }

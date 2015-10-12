@@ -1,12 +1,15 @@
 package be.arndep.camel.shared.rest;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by arnaud on 02/07/15.
  */
 public abstract class ResourceSupport {
-	private final Collection<Link> links;
+	protected final Collection<Link> links;
 
 	protected ResourceSupport() {
 		this(new ArrayList<>());

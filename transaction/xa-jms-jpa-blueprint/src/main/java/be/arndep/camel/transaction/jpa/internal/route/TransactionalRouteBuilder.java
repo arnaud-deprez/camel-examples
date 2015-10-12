@@ -1,7 +1,6 @@
 package be.arndep.camel.transaction.jpa.internal.route;
 
 import be.arndep.camel.transaction.jpa.message.MessageFactory;
-import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
 
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.io.IOException;
 public class TransactionalRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
+        //@formatter:off
         MessageFactory messageFactory = new MessageFactory();
 
         from("activemq:queue://xa.jms.jpa.in.1")
@@ -53,5 +53,6 @@ public class TransactionalRouteBuilder extends RouteBuilder {
 				.transform().simple("${body.content}")
                 .to("activemq:queue://xa.jms.jpa.out.4")
                 .throwException(new IOException("Forced Exception 4. This should provoke rollback"));
+        //@formatter:on
     }
 }

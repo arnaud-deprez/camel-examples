@@ -4,7 +4,6 @@ import be.arndep.camel.account.api.AccountType;
 import be.arndep.camel.account.api.CreateAccount;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.wordnik.swagger.annotations.ApiModel;
 
 /**
  * Created by arnaud on 23/06/15.
