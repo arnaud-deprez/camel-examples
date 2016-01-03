@@ -18,7 +18,7 @@
 
     <bean id="metricRoutePolicy" class="org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory"/>
 
-    <camel:camelContext id="transaction-jpa-blueprint" useBreadcrumb="true" useMDCLogging="true">
+    <camel:camelContext id="xa-jms-jpa" useBreadcrumb="true" useMDCLogging="true">
         <camel:routeBuilder ref="transactionRouteBuilder"/>
     </camel:camelContext>
 </blueprint>

@@ -1,22 +1,29 @@
 <features name="camel-examples" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0">
+
+    <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
+    <repository>mvn:org.apache.activemq/activemq-karaf/${activemq.version}/xml/features</repository>
+    <repository>mvn:org.apache.cxf.karaf/apache-cxf/3.1.4/xml/features</repository>
+    <repository>mvn:org.ops4j.pax.jdbc/pax-jdbc-features/0.7.0/xml/features</repository>
+
     <feature name="account-rest" version="${project.version}">
+        <feature>cxf</feature>
         <feature>camel</feature>
         <feature>camel-metrics</feature>
         <feature>camel-netty4-http</feature>
         <feature>camel-jackson</feature>
         <!-- This not yet available in OSGi-->
-        <feature>camel-swagger-java</feature>
+        <!--<feature>camel-swagger-java</feature>-->
         <feature>camel-bean-validator</feature>
         <feature>spring-web</feature>
         <!-- allow camel to access its own mbeans for karaf commands and other needs -->
         <config name="jmx.acl.org.apache.camel">
             * = *
         </config>
-        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/netty</bundle>
+        <configfile finalname="deploy/netty.xml">mvn:${project.groupId}/features/${project.version}/xml/netty</configfile>
         <!--<bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/camel-http-servlet</bundle>-->
-        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/camel-swagger-servlet</bundle>
-        <bundle dependency="true">mvn:be.arndep.camel/shared/${project.version}</bundle>
-        <bundle dependency="true">mvn:be.arndep.camel/account-api/${project.version}</bundle>
+        <!--<bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/camel-swagger-servlet</bundle>-->
+        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle>mvn:be.arndep.camel/account-api/${project.version}</bundle>
         <bundle>mvn:be.arndep.camel/account-core/${project.version}</bundle>
     </feature>
 
@@ -29,12 +36,11 @@
         <feature>camel-metrics</feature>
         <feature>camel-sql</feature>
         <feature>activemq</feature>
-        <feature>activemq-broker-noweb</feature>
         <feature>activemq-camel</feature>
-        <bundle dependency="true">mvn:com.h2database/h2/${h2db.version}</bundle>
-        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/h2-datasource</bundle>
-        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/activemq-component</bundle>
-        <bundle dependency="true">mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle>mvn:com.h2database/h2/${h2db.version}</bundle>
+        <configfile finalname="deploy/h2-datasource.xml">mvn:${project.groupId}/features/${project.version}/xml/h2-datasource</configfile>
+        <configfile finalname="deploy/activemq-component.xml">mvn:${project.groupId}/features/${project.version}/xml/activemq-component</configfile>
+        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
         <bundle>mvn:be.arndep.camel/xa-jms-sql-blueprint/${project.version}</bundle>
     </feature>
 
@@ -48,12 +54,11 @@
         <feature>camel</feature>
         <feature>camel-metrics</feature>
         <feature>activemq</feature>
-        <feature>activemq-broker-noweb</feature>
         <feature>activemq-camel</feature>
-        <bundle dependency="true">mvn:com.h2database/h2/${h2db.version}</bundle>
-        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/h2-datasource</bundle>
-        <bundle>blueprint:mvn:be.arndep.camel/features/${project.version}/xml/activemq-component</bundle>
-        <bundle dependency="true">mvn:be.arndep.camel/shared/${project.version}</bundle>
+        <bundle>mvn:com.h2database/h2/${h2db.version}</bundle>
+        <configfile finalname="deploy/h2-datasource.xml">mvn:${project.groupId}/features/${project.version}/xml/h2-datasource</configfile>
+        <configfile finalname="deploy/activemq-component.xml">mvn:${project.groupId}/features/${project.version}/xml/activemq-component</configfile>
+        <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
         <bundle>mvn:be.arndep.camel/xa-jms-jpa-blueprint/${project.version}</bundle>
     </feature>
 </features>

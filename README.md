@@ -7,3 +7,4 @@ Currently, we have the following POCs:
 
 * [rest](rest/README.md)
 * [transaction](transaction/README.md)
+* [itests](itests/README.md)

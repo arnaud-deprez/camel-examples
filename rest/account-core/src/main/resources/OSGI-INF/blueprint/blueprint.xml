@@ -36,7 +36,7 @@
     <!--Camel-->
     <bean id="metricRoutePolicy" class="org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory"/>
     
-    <camelContext id="bankAccounts-rest" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true">
+    <camelContext id="bankAccounts" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true">
         <routeBuilder ref="bankAccountRoute"/>
 
         <restConfiguration bindingMode="json"

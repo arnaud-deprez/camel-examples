@@ -17,7 +17,7 @@
 
     <bean id="metricRoutePolicy" class="org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory"/>
 
-    <camelContext id="transaction-sql" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" useBreadcrumb="true">
+    <camelContext id="xa-jms-sql" xmlns="http://camel.apache.org/schema/blueprint" useMDCLogging="true" useBreadcrumb="true">
         <routeBuilder ref="transactionalRoute"/>
     </camelContext>
 
