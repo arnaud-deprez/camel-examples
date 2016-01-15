@@ -8,6 +8,8 @@
     </parent>
 
     <artifactId>pax-exam</artifactId>
+    <name>${project.name}</name>
+    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>

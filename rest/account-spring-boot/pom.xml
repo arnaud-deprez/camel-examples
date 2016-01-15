@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>account-spring-boot</artifactId>
-    <name>Arndep :: Camel Examples : account-spring-boot</name>
+    <name>${project.name}</name>
     <!--<packaging>war</packaging>-->
 
     <properties>

@@ -9,7 +9,7 @@
 
     <artifactId>account-api</artifactId>
     <packaging>bundle</packaging>
-    <name>Arndep :: Camel Examples : account-api</name>
+    <name>${project.name}</name>
 
     <dependencies>
         <dependency>

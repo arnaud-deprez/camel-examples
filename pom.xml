@@ -43,6 +43,7 @@
         <org.apache.aries.transaction.manager.version>1.3.0</org.apache.aries.transaction.manager.version>
         <pax-exam.version>4.8.0</pax-exam.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.name>Arndep :: Camel Examples : ${project.artifactId}</project.name>
         <slf4j.version>1.7.12</slf4j.version>
         <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
         <spock.version>1.0-groovy-2.4</spock.version>

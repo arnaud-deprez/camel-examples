@@ -8,8 +8,8 @@
     </parent>
 
     <artifactId>xa-jms-jpa-blueprint</artifactId>
+    <name>${project.name}</name>
     <packaging>bundle</packaging>
-    <name>Arndep :: Camel Examples : xa-jms-jpa-blueprint</name>
 
     <dependencies>
         <dependency>

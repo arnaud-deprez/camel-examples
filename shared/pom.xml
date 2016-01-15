@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>shared</artifactId>
+    <name>${project.name}</name>
     <packaging>bundle</packaging>
 
     <dependencies>

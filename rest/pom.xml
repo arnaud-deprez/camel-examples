@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>rest</artifactId>
+    <name>${project.name}</name>
     <packaging>pom</packaging>
     <modules>
         <module>account-api</module>

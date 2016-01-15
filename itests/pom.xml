@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>itests</artifactId>
+    <name>${project.name}</name>
     <packaging>pom</packaging>
     <modules>
         <module>pax-exam</module>
