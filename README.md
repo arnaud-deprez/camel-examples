@@ -1,4 +1,4 @@
-Camel examples [![Build Status](https://travis-ci.org/arnaud-deprez/camel-examples?branch=master)]
+Camel examples [![Build Status](https://travis-ci.org/arnaud-deprez/camel-examples.svg?branch=master)]
 ==============
 
 This project will contain my POCs for camel usage
