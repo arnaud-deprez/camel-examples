@@ -8,8 +8,8 @@
     </parent>
 
     <artifactId>transaction</artifactId>
-    <name>${project.name}</name>
     <packaging>pom</packaging>
+    <name>${project.name}</name>
     <modules>
         <module>xa-jms-sql-blueprint</module>
         <module>xa-jms-jpa-blueprint</module>

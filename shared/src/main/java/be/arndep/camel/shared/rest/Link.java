@@ -1,98 +1,71 @@
 package be.arndep.camel.shared.rest;
 
+import be.arndep.camel.shared.builder.FluentBuilder;
+import be.arndep.camel.shared.immutables.HideImplementation;
+import org.immutables.value.Value;
+
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by arnaud on 15/02/15.
  */
-public final class Link {
+@Value.Immutable
+@HideImplementation
+public abstract class Link {
 	public static final String SELF_REL = "self";
 
-	private final String rel;
-	private final String href;
-	private final boolean templated;
-	private final Collection<String> types;
-	private final Collection<String> methods;
+	@Value.Parameter
+	public abstract String getRel();
+	@Value.Parameter
+	public abstract String getHref();
 
-	private Link(final Builder builder) {
-		rel = builder.rel;
-		href = builder.href;
-		types = builder.types.isEmpty() ? null : builder.types;
-		methods = builder.methods.isEmpty() ? null : builder.methods;
-		templated = builder.templated;
+	@Value.Default
+	public Boolean getTemplated() {
+		return false;
+	}
+	@Value.Default
+	public List<String> getTypes() {
+		return Collections.emptyList();
+	}
+	@Value.Default
+	public List<String> getMethods() {
+		return Collections.emptyList();
 	}
 
-	public static Builder newBuilder() {
-		return new Builder();
+	public static Link of(String rel, String href) {
+		return ImmutableLink.of(rel, href);
 	}
 
-	public String getRel() {
-		return rel;
+	public static Builder builder() {
+		return ImmutableLink.builder();
 	}
 
-	public String getHref() {
-		return href;
-	}
+	public interface Builder extends FluentBuilder<Link>, FluentBuilder.Copy<Link, Builder> {
+		Builder rel(String rel);
+		Builder href(String href);
 
-	public boolean isTemplated() {
-		return templated;
-	}
-
-	public Collection<String> getTypes() {
-		return types;
-	}
-
-	public Collection<String> getMethods() {
-		return methods;
-	}
-
-
-	public static final class Builder {
-		private String rel;
-		private String href;
-		private Collection<String> types;
-		private Collection<String> methods;
-		private boolean templated;
-
-		private Builder() {
-			types = new ArrayList<>();
-			methods = new ArrayList<>();
-			templated = false;
-		}
-
-		public Builder rel(final String rel) {
-			this.rel = rel;
-			return this;
-		}
-
-		public Builder href(final String href) {
-			this.href = href;
-			return this;
-		}
-
-		public Builder withTypes(final String... types) {
-			this.types.addAll(Arrays.asList(types));
-			return this;
-		}
-
-		public Builder withMethods(final String... methods) {
-			this.methods.addAll(Arrays.asList(methods));
-			return this;
-		}
-
-		public Builder templated(boolean templated) {
-			this.templated = templated;
-			return this;
-		}
-
-		public Link build(final Object... objects) {
-			if (objects != null && objects.length > 0) {
-				href = MessageFormat.format(href, objects);
+		default Builder href(final String href, final Object... objects) {
+			Objects.requireNonNull(objects);
+			if (objects.length <= 0) {
+				throw new IllegalArgumentException("objects must contain at least one element");
 			}
-			return new Link(this);
+			return this.href(MessageFormat.format(href, objects));
+		}
+
+		Builder templated(Boolean templated);
+		Builder types(List<String> types);
+		Builder methods(List<String> methods);
+
+		default Builder types(String... types) {
+			return types(Arrays.asList(types));
+		}
+
+		default Builder methods(String... methods) {
+			return methods(Arrays.asList(methods));
 		}
 	}
 }

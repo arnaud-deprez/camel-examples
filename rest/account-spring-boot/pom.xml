@@ -40,7 +40,12 @@
         </dependency>
         <dependency>
             <groupId>be.arndep.camel</groupId>
-            <artifactId>account-core</artifactId>
+            <artifactId>account-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>be.arndep.camel</groupId>
+            <artifactId>account-rest</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -62,10 +67,6 @@
             <artifactId>commons-logging</artifactId>
         </dependency>
         <!--Camel Spring support-->
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-spring</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-boot</artifactId>

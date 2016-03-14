@@ -8,11 +8,12 @@
     </parent>
 
     <artifactId>rest</artifactId>
-    <name>${project.name}</name>
     <packaging>pom</packaging>
+    <name>${project.name}</name>
     <modules>
         <module>account-api</module>
-        <module>account-core</module>
+        <module>account-impl</module>
+        <module>account-rest</module>
         <module>account-spring-boot</module>
     </modules>
 </project>

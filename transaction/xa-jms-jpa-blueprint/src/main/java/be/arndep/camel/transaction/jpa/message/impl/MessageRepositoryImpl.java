@@ -6,6 +6,8 @@ import be.arndep.camel.transaction.jpa.message.MessageRepository;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 /**
  * Created by arnaud on 03.01.15.
@@ -30,10 +32,10 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public List<Message> findAll(final Optional<Long> page, final Optional<Long> limit) {
+    public List<Message> findAll(final Optional<Integer> page, final Optional<Integer> limit) {
         return entityManager.createQuery("select m from Message m order by m.lastModifiedDate")
-            .setMaxResults(limit.orElse(Long.valueOf(20)).intValue())
-            .setFirstResult(page.orElse(Long.valueOf(0)).intValue())
+            .setMaxResults(limit.orElse(20))
+            .setFirstResult(page.orElse(0))
             .getResultList();
     }
 

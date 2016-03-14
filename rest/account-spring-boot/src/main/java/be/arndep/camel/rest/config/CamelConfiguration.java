@@ -1,6 +1,7 @@
 package be.arndep.camel.rest.config;
 
-import be.arndep.camel.account.core.rest.BankAccountRestServiceRoute;
+import be.arndep.camel.account.rest.BankAccountRestServiceRoute;
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
@@ -31,14 +32,17 @@ public class CamelConfiguration extends SpringBootServletInitializer  {
 	 */
 	@Bean
 	public CamelContextConfiguration contextConfiguration() {
-		return camelContext -> {
-			camelContext.setUseMDCLogging(true);
-			camelContext.setUseBreadcrumb(true);
+		return new CamelContextConfiguration() {
+			@Override
+			public void beforeApplicationStart(CamelContext camelContext) {
+				camelContext.setUseMDCLogging(true);
+				camelContext.setUseBreadcrumb(true);
             /*<restConfiguration bindingMode="json" component="{{camel.rest.component}}" port="{{camel.rest.port}}" contextPath="{{camel.rest.contextPath}}">
             <dataFormatProperty key="prettyPrint" value="{{camel.dataFormat.prettyPrint}}"/>
             </restConfiguration>*/
-            camelContext.getRestConfiguration().setBindingMode(RestConfiguration.RestBindingMode.json);
-            camelContext.getRestConfiguration().setComponent("servlet");
+				camelContext.getRestConfiguration().setBindingMode(RestConfiguration.RestBindingMode.json);
+				camelContext.getRestConfiguration().setComponent("servlet");
+			}
 		};
 	}
 

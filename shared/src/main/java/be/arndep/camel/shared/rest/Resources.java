@@ -11,21 +11,29 @@ import java.util.Collections;
 public final class Resources<T> extends ResourceSupport {
 	private final Collection<T> content;
 
-	protected Resources() {
+	private Resources() {
 		this(new ArrayList<>(), new ArrayList<>());
 	}
 
-	public Resources(Iterable<T> content, Iterable<Link> links) {
+	private Resources(Iterable<T> content, Iterable<Link> links) {
 		super(links);
 		this.content = new ArrayList<>();
 		content.forEach(t -> this.content.add(t));
 	}
 
-	public Resources(Iterable<T> content, Link... links) {
+	private Resources(Iterable<T> content, Link... links) {
 		this(content, Arrays.asList(links));
 	}
 
 	public Collection<T> getContent() {
 		return Collections.unmodifiableCollection(content);
+	}
+
+	public static <T> Resources<T> of(Iterable<T> content, Iterable<Link> links) {
+		return new Resources<>(content, links);
+	}
+
+	public static <T> Resources<T> of(Iterable<T> content, Link... links) {
+		return new Resources<>(content, links);
 	}
 }

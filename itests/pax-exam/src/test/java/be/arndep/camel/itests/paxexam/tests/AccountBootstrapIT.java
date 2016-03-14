@@ -1,5 +1,7 @@
 package be.arndep.camel.itests.paxexam.tests;
 
+import be.arndep.camel.account.api.AccountCommandService;
+import be.arndep.camel.account.api.AccountQueryService;
 import be.arndep.camel.itests.paxexam.support.KarafSupportIT;
 import org.apache.camel.CamelContext;
 import org.assertj.core.api.Assertions;
@@ -26,7 +28,7 @@ import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.features;
 @ExamReactorStrategy(PerClass.class)
 public class AccountBootstrapIT extends KarafSupportIT {
 	@Inject
-	@Filter("(camel.context.name=bankAccounts)")
+	@Filter("(camel.context.name=bankAccounts-rest)")
 	protected CamelContext camelContext;
 
 	@Configuration
@@ -49,11 +51,14 @@ public class AccountBootstrapIT extends KarafSupportIT {
 	public void testInstallation() throws Exception {
 		assertFeatureInstalled("account-rest", System.getProperty("project.version"));
 		assertBundleInstalled("be.arndep.camel.account-api", Bundle.ACTIVE);
-		assertBundleInstalled("be.arndep.camel.account-core", Bundle.ACTIVE);
+		assertBundleInstalled("be.arndep.camel.account-impl", Bundle.ACTIVE);
+		assertBundleInstalled("be.arndep.camel.account-rest", Bundle.ACTIVE);
 	}
 
 	@Test
 	public void testServiceInjection() throws Exception {
 		Assertions.assertThat(camelContext).isNotNull();
+		Assertions.assertThat(camelContext.getRegistry().lookupByNameAndType("accountCommandService", AccountCommandService.class)).isNotNull();
+		Assertions.assertThat(camelContext.getRegistry().lookupByNameAndType("accountQueryService", AccountQueryService.class)).isNotNull();
 	}
 }

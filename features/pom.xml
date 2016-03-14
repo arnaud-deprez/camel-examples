@@ -8,8 +8,8 @@
     </parent>
 
     <artifactId>features</artifactId>
-    <name>${project.name}</name>
     <packaging>pom</packaging>
+    <name>${project.name}</name>
 
     <dependencies>
         <dependency>

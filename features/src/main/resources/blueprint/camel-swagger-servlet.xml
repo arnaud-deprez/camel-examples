@@ -5,21 +5,21 @@
 
     <service ref="swaggerCamelServlet" interface="javax.servlet.Servlet">
         <service-properties>
-            <entry key="alias" value="/camel/api/api-docs"/>
+            <entry key="alias" value="/api-docs"/>
 
             <!-- init-params -->
-            <entry key="init.api.version" value="1.0.0-SNAPSHOT"/>
-            <entry key="init.api.path" value="camel/api/api-docs"/>
-            <entry key="init.base.path" value="camel/api"/>
-            <entry key="init.api.title" value="API title"/>
-            <entry key="init.api.description" value="API description"/>
-            <entry key="init.api.termsOfServiceUrl" value="http://arndep.be"/>
+            <entry key="init.api.version" value="${project.version}"/>
+            <entry key="init.api.path" value="/api-docs"/>
+            <entry key="init.base.path" value="/"/>
+            <entry key="init.apiContextIdListing" value="true"/>
+            <entry key="init.apiContextIdPattern" value=".*-rest"/>
+            <entry key="init.api.title" value="Camel API Example"/>
+            <entry key="init.api.description" value="Example of camel REST API"/>
             <entry key="init.api.contact" value="arnaudeprez@gmail.com"/>
             <entry key="init.api.license" value="LICENSE"/>
-            <entry key="init.api.licenseUrl" value="licenseUrl"/>
             <entry key="init.servlet-name" value="ApiDeclarationServlet"/>
+            <!-- Not recommended for security reason but it's easy to test -->
             <entry key="init.cors" value="true"/>
-            <entry key="init.apiContextIdListing" value="true"/>
         </service-properties>
     </service>
 
