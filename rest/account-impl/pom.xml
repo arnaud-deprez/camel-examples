@@ -98,8 +98,12 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
                 <configuration>
-                    <packages>be.arndep.camel.account.api</packages>
-                    <classes>be.arndep.camel.account.impl.domain.BankAccount</classes>
+                    <packages>
+                        <param>be.arndep.camel.account.api</param>
+                    </packages>
+                    <classes>
+                        <param>be.arndep.camel.account.impl.domain.BankAccount</param>
+                    </classes>
                 </configuration>
                 <!-- generate assertions at every build -->
                 <executions>
