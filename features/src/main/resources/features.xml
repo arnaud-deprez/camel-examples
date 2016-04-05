@@ -10,12 +10,13 @@
         <feature>camel-jackson</feature>
         <bundle>mvn:com.fasterxml.jackson.datatype/jackson-datatype-jdk8/${jackson.version}</bundle>
         <bundle>mvn:com.fasterxml.jackson.datatype/jackson-datatype-jsr310/${jackson.version}</bundle>
-        <bundle>mvn:com.google.guava/guava/19.0</bundle>
+        <bundle>mvn:com.google.guava/guava/${guava.version}</bundle>
         <bundle>mvn:be.arndep.camel/shared/${project.version}</bundle>
     </feature>
 
     <feature name="account-rest" version="${project.version}">
         <feature>cxf-jaxrs</feature>
+        <feature>http-whiteboard</feature>
         <feature>camel</feature>
         <feature>camel-metrics</feature>
         <feature>camel-netty4-http</feature>

@@ -22,7 +22,7 @@
         <assertj-plugin.version>2.0.0</assertj-plugin.version>
         <assertj.version>3.3.0</assertj.version>
         <build-helper-maven-plugin-version>1.10</build-helper-maven-plugin-version>
-        <camel.version>2.16.2</camel.version>
+        <camel.version>2.16.3</camel.version>
         <cglib.version>3.2.1</cglib.version>
         <cxf.version>3.1.6</cxf.version>
         <dbcp2.version>2.1.1</dbcp2.version>
@@ -484,4 +484,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <!--Used for staging release-->
+    <!--<repositories>
+        <repository>
+            <id>camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1049</url>
+        </repository>
+    </repositories>-->
 </project>

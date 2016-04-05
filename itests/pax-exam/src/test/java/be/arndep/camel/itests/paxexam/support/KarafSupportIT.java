@@ -91,6 +91,7 @@ public abstract class KarafSupportIT {
 		);
 		result.add(configureConsole().ignoreLocalConsole());
 		result.add(logLevel(LogLevelOption.LogLevel.INFO));
+//		result.add(editConfigurationFilePut("etc/org.ops4j.pax.url.mvn.cfg", "org.ops4j.pax.url.mvn.repositories", "https://repository.apache.org/content/repositories/orgapachecamel-1049@id=camel"));
 		result.add(editConfigurationFilePut("etc/org.ops4j.pax.web.cfg", "org.osgi.service.http.port", System.getProperty(HTTP_PORT)));
 		result.add(editConfigurationFilePut("etc/org.apache.karaf.management.cfg", "rmiRegistryPort", System.getProperty(RMI_REG_PORT)));
 		result.add(editConfigurationFilePut("etc/org.apache.karaf.management.cfg", "rmiServerPort", System.getProperty(RMI_SERVER_PORT)));
